@@ -1,0 +1,321 @@
+{
+    "columns": {
+        "begbates": {
+            "count": 3,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "endbates": {
+            "count": 3,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "begattach": {
+            "count": 6,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "endattach": {
+            "count": 6,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "custodian": {
+            "count": 8,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "duplicate custodian": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "file name": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "subject": {
+            "count": 6,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "title": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "author": {
+            "count": 8,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "from": {
+            "count": 8,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "to": {
+            "count": 8,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "cc": {
+            "count": 8,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "bcc": {
+            "count": 8,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "datesent": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "timesent": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "datereceived": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "timereceived": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "datecreated": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "timecreated": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "datelastmodified": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "fileextension": {
+            "count": 3,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "redacted": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "confidentiality": {
+            "count": 8,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "message-id": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "foreign language": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "hash value": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "page count": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "production volume": {
+            "count": 3,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "full text": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "native link": {
+            "count": 1,
+            "first_seen": "2025-02-23T17:08:16.279218"
+        },
+        "prodbeg": {
+            "count": 1,
+            "first_seen": "2025-02-23T17:10:48.279185"
+        },
+        "prodend": {
+            "count": 1,
+            "first_seen": "2025-02-23T17:10:48.279185"
+        },
+        "nativelink": {
+            "count": 5,
+            "first_seen": "2025-02-23T17:10:48.279185"
+        },
+        "textlink": {
+            "count": 1,
+            "first_seen": "2025-02-23T17:10:48.279185"
+        },
+        "confidential designation": {
+            "count": 1,
+            "first_seen": "2025-02-23T17:10:48.279185"
+        },
+        "bates number begin": {
+            "count": 2,
+            "first_seen": "2025-02-23T17:14:31.436559"
+        },
+        "bates number end": {
+            "count": 2,
+            "first_seen": "2025-02-23T17:14:31.436559"
+        },
+        "attachment begin": {
+            "count": 2,
+            "first_seen": "2025-02-23T17:14:31.436559"
+        },
+        "attachment end": {
+            "count": 2,
+            "first_seen": "2025-02-23T17:14:31.436559"
+        },
+        "family range": {
+            "count": 2,
+            "first_seen": "2025-02-23T17:14:31.436559"
+        },
+        "file extension": {
+            "count": 2,
+            "first_seen": "2025-02-23T17:14:31.436559"
+        },
+        "email subject": {
+            "count": 2,
+            "first_seen": "2025-02-23T17:14:31.436559"
+        },
+        "file path": {
+            "count": 2,
+            "first_seen": "2025-02-23T17:14:31.436559"
+        },
+        "firstbates": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "lastbates": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "attachrange": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "parent_bates": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "child_bates": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "all_custodian": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "file_size": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "pgcount": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "path": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "md5hash": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "ocrpath": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "file_name": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "date_sent": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "time_sent/time_zone": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "time_zone": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "link": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "mime_type": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "file_exten": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "last_author": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "date_created": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "time_created/time_zone": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "date_mod": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "time_mod/time_zone": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "date_accessed": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "time_accessed/time_zone": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "printed_date": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "intfilepath": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "intmsgid": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "conversation_group": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "conversation_start_date": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "conversation_start_time/time_zone": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "conversation_end_date": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "conversation_end_time/time_zone": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "mobile_source_app": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        },
+        "mobile_source_app_account": {
+            "count": 3,
+            "first_seen": "2025-02-24T08:55:27.123443"
+        }
+    },
+    "last_updated": "2025-02-24T09:01:11.718903"
+}

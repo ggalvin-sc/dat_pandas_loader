@@ -273,16 +273,18 @@ def generate_spreadsheet_view(df, filename_base, num_rows=50):
         display_columns = df.columns[:20]  # Limit to first 20 columns for readability
 
         for col in display_columns:
-            # Width is max of column name and sample data
-            max_data_width = df[col].astype(str).str.len().max() if len(df) > 0 else 0
-            col_widths[col] = min(max(len(str(col)), max_data_width, 8), 25)  # Min 8, max 25 chars
+            # Width is max of column name and sample data (check first 100 rows for performance)
+            sample_data = df[col].head(100).astype(str)
+            max_data_width = sample_data.str.len().max() if len(sample_data) > 0 else 0
+            col_name_width = len(str(col))
+            col_widths[col] = min(max(col_name_width, max_data_width, 10), 30)  # Min 10, max 30 chars
 
         # Header row
         header_line = "| "
-        separator_line = "|-"
+        separator_line = "|"
         for col in display_columns:
             header_line += f"{str(col):<{col_widths[col]}} | "
-            separator_line += "-" * col_widths[col] + "-|-"
+            separator_line += "-" * col_widths[col] + " |"
 
         f.write(header_line + "\n")
         f.write(separator_line + "\n")

@@ -1,0 +1,411 @@
+{
+  "columns": {
+    "BegBates": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "string",
+        "sample_values": [
+          "CEPCI-SC_00206127",
+          "CEPCI-SC_00206160",
+          "CEPCI-SC_00206164"
+        ],
+        "unique_ratio": 1.0,
+        "null_ratio": 0.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "EndBates": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "string",
+        "sample_values": [
+          "CEPCI-SC_00206159",
+          "CEPCI-SC_00206163",
+          "CEPCI-SC_00206168"
+        ],
+        "unique_ratio": 1.0,
+        "null_ratio": 0.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "BegAttach": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "string",
+        "sample_values": [
+          "CEPCI-SC_00206127",
+          "CEPCI-SC_00206160",
+          "CEPCI-SC_00206164"
+        ],
+        "unique_ratio": 1.0,
+        "null_ratio": 0.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "EndAttach": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "string",
+        "sample_values": [
+          "CEPCI-SC_00206159",
+          "CEPCI-SC_00206163",
+          "CEPCI-SC_00206168"
+        ],
+        "unique_ratio": 1.0,
+        "null_ratio": 0.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Custodian": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "string",
+        "sample_values": [
+          "Santee Cooper",
+          "Santee Cooper",
+          "Santee Cooper"
+        ],
+        "unique_ratio": 0.14285714285714285,
+        "null_ratio": 0.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Duplicate Custodian": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "multi-valued",
+        "sample_values": [
+          "McCormack, Greg;",
+          "McCormack, Greg;"
+        ],
+        "unique_ratio": 0.14285714285714285,
+        "null_ratio": 0.7142857142857143,
+        "detected_delimiters": [
+          ",",
+          ";"
+        ]
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "File Name": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "string",
+        "sample_values": [
+          "20150522 Retention Schedule.doc",
+          "2-37-06 20101109 Corporate Records Management.pdf",
+          "2-37-07 201106015 Corporate Records Management.pdf"
+        ],
+        "unique_ratio": 1.0,
+        "null_ratio": 0.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Subject": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Title": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "string",
+        "sample_values": [
+          "To search for a particular Record Series number:",
+          "Corporate Procedures - 2-14-02 - Electronic Mail Management",
+          "Corporate Procedures - 2-14-02 - Electronic Mail Management"
+        ],
+        "unique_ratio": 0.2857142857142857,
+        "null_ratio": 0.5714285714285714
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Author": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "string",
+        "sample_values": [
+          "Wendy G. Dennis",
+          "Santee Cooper User",
+          "Santee Cooper User"
+        ],
+        "unique_ratio": 0.2857142857142857,
+        "null_ratio": 0.5714285714285714
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "From": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "To": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "CC": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "BCC": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "DateSent": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "TimeSent": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "DateReceived": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "TimeReceived": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "DateCreated": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "TimeCreated": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "DateLastModified": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "datetime",
+        "sample_values": [
+          "11/30/2018",
+          "11/17/2010",
+          "6/16/2011"
+        ],
+        "unique_ratio": 1.0,
+        "null_ratio": 0.0,
+        "detected_formats": [
+          "%m/%d/%Y"
+        ]
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "FileExtension": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "string",
+        "sample_values": [
+          "doc",
+          "pdf",
+          "pdf"
+        ],
+        "unique_ratio": 0.2857142857142857,
+        "null_ratio": 0.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Redacted": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Confidentiality": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Message-ID": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Foreign Language": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Hash Value": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "string",
+        "sample_values": [
+          "091e38c10a97f0210cc6837563ba554c",
+          "dfdf877e74c43808dfece604a9e4d460",
+          "f1634179fcd4c24e6fe752ceb5d800e2"
+        ],
+        "unique_ratio": 1.0,
+        "null_ratio": 0.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Page Count": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "integer",
+        "sample_values": [
+          "33",
+          "4",
+          "5"
+        ],
+        "unique_ratio": 0.5714285714285714,
+        "null_ratio": 0.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Production Volume": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "string",
+        "sample_values": [
+          "CEPCI_SC_PROD006",
+          "CEPCI_SC_PROD006",
+          "CEPCI_SC_PROD006"
+        ],
+        "unique_ratio": 0.14285714285714285,
+        "null_ratio": 0.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Full Text": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "string",
+        "sample_values": [
+          "TEXT\\\\TEXT001\\\\CEPCI-SC_00206127.txt",
+          "TEXT\\\\TEXT001\\\\CEPCI-SC_00206160.txt",
+          "TEXT\\\\TEXT001\\\\CEPCI-SC_00206164.txt"
+        ],
+        "unique_ratio": 1.0,
+        "null_ratio": 0.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    },
+    "Native Link": {
+      "first_seen": "2025-02-23T14:46:53.317257",
+      "occurrence_count": 10,
+      "type_analysis": {
+        "suggested_type": "empty",
+        "sample_values": [],
+        "unique_ratio": 0.0,
+        "null_ratio": 1.0
+      },
+      "last_seen": "2025-02-23T15:08:38.164880"
+    }
+  }
+}

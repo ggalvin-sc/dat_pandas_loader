@@ -1,0 +1,583 @@
+{
+    "fields": {
+        "BegBates": {
+            "alternates": [
+                "BatesBegin",
+                "BatesStart",
+                "BeginningBates",
+                "FirstBates",
+                "StartBates",
+                "bates number begin",
+                "prodbeg",
+                "prodend"
+            ],
+            "type": "StrField",
+            "category": "bates_numbering"
+        },
+        "EndBates": {
+            "alternates": [
+                "BatesEnd",
+                "BatesLast",
+                "FinalBates",
+                "LastBates",
+                "bates number end"
+            ],
+            "type": "TextField",
+            "category": "bates_numbering"
+        },
+        "BegAttach": {
+            "alternates": [
+                "FamilyBegin",
+                "FirstAttach",
+                "ParentBates",
+                "StartAttach",
+                "attachment begin",
+                "parent_bates"
+            ],
+            "type": "TextField",
+            "category": "bates_numbering"
+        },
+        "EndAttach": {
+            "alternates": [
+                "FamilyEnd",
+                "FinalAttach",
+                "LastAttach",
+                "attachment end",
+                "child_bates"
+            ],
+            "type": "TextField",
+            "category": "bates_numbering"
+        },
+        "Custodian": {
+            "alternates": [
+                "DataCustodian",
+                "DocumentCustodian",
+                "Owner",
+                "all_custodian"
+            ],
+            "type": "TextField",
+            "category": "custodian"
+        },
+        "DuplicateCustodian": {
+            "alternates": [
+                "DupeCustodian",
+                "OtherCustodian",
+                "SecondCustodian",
+                "duplicate custodian",
+                "Duplicate Custodian"
+            ],
+            "type": "TextField",
+            "category": "custodian"
+        },
+        "FileName": {
+            "alternates": [
+                "DocFileName",
+                "DocumentName",
+                "OriginalFileName",
+                "file name",
+                "file_name",
+                "File Name"
+            ],
+            "type": "TextField",
+            "category": "file_system"
+        },
+        "Subject": {
+            "alternates": [
+                "DocumentSubject",
+                "EmailSubject",
+                "MessageSubject",
+                "email subject"
+            ],
+            "type": "TextField",
+            "category": "email_metadata"
+        },
+        "Title": {
+            "alternates": [
+                "DocTitle",
+                "DocumentTitle"
+            ],
+            "type": "TextField",
+            "category": "document_metadata"
+        },
+        "From": {
+            "alternates": [
+                "EmailFrom",
+                "Sender",
+                "FromEmail"
+            ],
+            "type": "TextField",
+            "category": "email_metadata"
+        },
+        "To": {
+            "alternates": [
+                "EmailTo",
+                "Recipient",
+                "ToEmail"
+            ],
+            "type": "TextField",
+            "category": "email_metadata"
+        },
+        "CC": {
+            "alternates": [
+                "EmailCC",
+                "CarbonCopy",
+                "CCEmail"
+            ],
+            "type": "TextField",
+            "category": "email_metadata"
+        },
+        "BCC": {
+            "alternates": [
+                "EmailBCC",
+                "BlindCopy",
+                "BCCEmail"
+            ],
+            "type": "TextField",
+            "category": "email_metadata"
+        },
+        "DateSent": {
+            "alternates": [
+                "EmailDate",
+                "MessageDate",
+                "SentDate",
+                "date_sent"
+            ],
+            "type": "DateTimeField",
+            "category": "datetime"
+        },
+        "TimeSent": {
+            "alternates": [
+                "EmailTime",
+                "SentTime",
+                "MessageTime"
+            ],
+            "type": "DatePointField",
+            "category": "datetime"
+        },
+        "DateReceived": {
+            "alternates": [
+                "ReceivedDate",
+                "DateRcvd",
+                "InboundDate"
+            ],
+            "type": "DatePointField",
+            "category": "datetime"
+        },
+        "TimeReceived": {
+            "alternates": [
+                "ReceivedTime",
+                "TimeRcvd",
+                "InboundTime"
+            ],
+            "type": "DatePointField",
+            "category": "datetime"
+        },
+        "DateCreated": {
+            "alternates": [
+                "CreateDate",
+                "DocDate",
+                "DocumentDate",
+                "date_created"
+            ],
+            "type": "DateField",
+            "category": "datetime"
+        },
+        "TimeCreated": {
+            "alternates": [
+                "CreateTime",
+                "DocTime",
+                "DocumentTime"
+            ],
+            "type": "DatePointField",
+            "category": "datetime"
+        },
+        "DateLastModified": {
+            "alternates": [
+                "ModifiedDate",
+                "LastModDate",
+                "DateModified"
+            ],
+            "type": "DateField",
+            "category": "datetime"
+        },
+        "FileExtension": {
+            "alternates": [
+                "DocExt",
+                "Extension",
+                "FileExt",
+                "file extension",
+                "file_exten"
+            ],
+            "type": "TextField",
+            "category": "file_system"
+        },
+        "Redacted": {
+            "alternates": [
+                "IsRedacted",
+                "HasRedactions",
+                "RedactionFlag"
+            ],
+            "type": "TextField",
+            "category": "security"
+        },
+        "Confidentiality": {
+            "alternates": [
+                "ConfidentialityLevel",
+                "PrivilegeLevel",
+                "Sensitivity",
+                "confidential designation"
+            ],
+            "type": "TextField",
+            "category": "security"
+        },
+        "MessageID": {
+            "alternates": [
+                "MsgID",
+                "EmailID",
+                "UniqueMessageID"
+            ],
+            "type": "TextField",
+            "category": "email_metadata"
+        },
+        "ForeignLanguage": {
+            "alternates": [
+                "DocumentLanguage",
+                "Language",
+                "NonEnglish",
+                "foreign language",
+                "Foreign Language"
+            ],
+            "type": "TextField",
+            "category": "document_metadata"
+        },
+        "HashValue": {
+            "alternates": [
+                "DocumentHash",
+                "MD5Hash",
+                "SHA1Hash",
+                "hash value",
+                "Hash Value"
+            ],
+            "type": "TextField",
+            "category": "file_system"
+        },
+        "PageCount": {
+            "alternates": [
+                "DocPages",
+                "NumberOfPages",
+                "Pages",
+                "page count",
+                "pgcount",
+                "Page Count"
+            ],
+            "type": "IntegerField",
+            "category": "document_metadata"
+        },
+        "ProductionVolume": {
+            "alternates": [
+                "ProdVolume",
+                "ProductionBatch",
+                "VolumeName",
+                "production volume"
+            ],
+            "type": "TextField",
+            "category": "production"
+        },
+        "FullText": {
+            "alternates": [
+                "Content",
+                "DocumentText",
+                "ExtractedText",
+                "full text",
+                "ocrpath",
+                "textlink",
+                "Full Text"
+            ],
+            "type": "TextField",
+            "category": "content"
+        },
+        "nativelink": {
+            "alternates": [
+                "link",
+                "native link",
+                "Native Link"
+            ],
+            "type": "TextField",
+            "category": "file_links"
+        },
+        "message-id": {
+            "alternates": [
+                "Message-ID"
+            ],
+            "type": "TextField",
+            "category": "email_metadata"
+        },
+        "filepath": {
+            "alternates": [
+                "file path",
+                "path"
+            ],
+            "type": "TextField",
+            "category": "file_system"
+        },
+        "AllCustodian": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "custodian"
+        },
+        "Attachments": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "email_metadata"
+        },
+        "Body": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "content"
+        },
+        "CombinedBegAttach": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "bates_numbering"
+        },
+        "ControlNumber": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "bates_numbering"
+        },
+        "ConversationEndDate": {
+            "alternates": [],
+            "type": "DateField",
+            "category": "datetime"
+        },
+        "ConversationEndTimezone": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "datetime"
+        },
+        "ConversationStartDate": {
+            "alternates": [],
+            "type": "DateField",
+            "category": "datetime"
+        },
+        "ConversationStartTimezone": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "datetime"
+        },
+        "DateAccessed": {
+            "alternates": [],
+            "type": "DateField",
+            "category": "datetime"
+        },
+        "DeDuplicatedPath": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "file_system"
+        },
+        "DocumentDate": {
+            "alternates": [],
+            "type": "DateField",
+            "category": "datetime"
+        },
+        "DupCustodianPath": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "custodian"
+        },
+        "ESIType": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "document_metadata"
+        },
+        "FileCategory": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "file_system"
+        },
+        "FileSize": {
+            "alternates": [],
+            "type": "IntegerField",
+            "category": "file_system"
+        },
+        "FileType": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "file_system"
+        },
+        "Hash": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "file_system"
+        },
+        "HasImages": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "document_metadata"
+        },
+        "HasNative": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "document_metadata"
+        },
+        "MimeType": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "file_system"
+        },
+        "NativeProduced": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "production"
+        },
+        "Notes": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "content"
+        },
+        "OSCreated": {
+            "alternates": [],
+            "type": "DateTimeField",
+            "category": "datetime"
+        },
+        "OSSaveTime": {
+            "alternates": [],
+            "type": "DateTimeField",
+            "category": "datetime"
+        },
+        "ParentBates": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "bates_numbering"
+        },
+        "PrintedDate": {
+            "alternates": [],
+            "type": "DateField",
+            "category": "datetime"
+        },
+        "ProductionDate": {
+            "alternates": [],
+            "type": "DateField",
+            "category": "production"
+        },
+        "SupportedByViewer": {
+            "alternates": [],
+            "type": "TextField",
+            "category": "document_metadata"
+        },
+        "TimeAccessedTimezone": {
+            "alternates": [
+                "TimeAccessed/Timezone"
+            ],
+            "type": "TextField",
+            "category": "datetime"
+        },
+        "TimeCreatedTimezone": {
+            "alternates": [
+                "TimeCreated/Timezone"
+            ],
+            "type": "TextField",
+            "category": "datetime"
+        },
+        "TimeModTimezone": {
+            "alternates": [
+                "TimeMod/Timezone"
+            ],
+            "type": "TextField",
+            "category": "datetime"
+        },
+        "TimeSentTimezone": {
+            "alternates": [
+                "TimeSent/Timezone"
+            ],
+            "type": "TextField",
+            "category": "datetime"
+        }
+    },
+    "transformations": {
+        "splits": [
+            {
+                "source_field": "BatesRange",
+                "separator": "-",
+                "target_fields": {
+                    "left": "BegBates",
+                    "right": "EndBates"
+                }
+            },
+            {
+                "source_field": "AttachRange",
+                "separator": "-",
+                "target_fields": {
+                    "left": "BegAttach",
+                    "right": "EndAttach"
+                }
+            },
+            {
+                "source_field": "EndAttach",
+                "separator": "-",
+                "target_fields": {
+                    "left": "EndAttach_Left",
+                    "right": "EndAttach_Right"
+                }
+            },
+            {
+                "source_field": "EndAttach",
+                "separator": ",",
+                "target_fields": {
+                    "left": "EndAttach_Left",
+                    "right": "EndAttach_Right"
+                }
+            },
+            {
+                "source_field": "EndAttach",
+                "separator": " ",
+                "target_fields": {
+                    "left": "EndAttach_Left",
+                    "right": "EndAttach_Right"
+                }
+            },
+            {
+                "source_field": "EndAttach",
+                "separator": "|",
+                "target_fields": {
+                    "left": "EndAttach_Left",
+                    "right": "EndAttach_Right"
+                }
+            },
+            {
+                "source_field": "family range",
+                "separator": "-",
+                "target_fields": {
+                    "left": "BegAttach",
+                    "right": "EndAttach"
+                }
+            }
+        ],
+        "merges": [
+            {
+                "source_fields": {
+                    "date": "DateSent",
+                    "time": "TimeSent"
+                },
+                "target_field": "SentDateTime",
+                "format": {
+                    "date": "%Y-%m-%d",
+                    "time": "%H:%M:%S",
+                    "output": "%Y-%m-%d %H:%M:%S"
+                }
+            },
+            {
+                "source_fields": {
+                    "date": "DateReceived",
+                    "time": "TimeReceived"
+                },
+                "target_field": "ReceivedDateTime",
+                "format": {
+                    "date": "%Y-%m-%d",
+                    "time": "%H:%M:%S",
+                    "output": "%Y-%m-%d %H:%M:%S"
+                }
+            }
+        ]
+    }
+}
