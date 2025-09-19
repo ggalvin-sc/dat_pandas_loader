@@ -1,0 +1,198 @@
+{
+  "_metadata": {
+    "description": "Metadata tracking for normalized fields",
+    "created": "2025-09-19T12:55:57.674296",
+    "version": "1.0.0",
+    "last_updated": "2025-09-19T13:07:45.681867"
+  },
+  "fields": {
+    "DateSent": {
+      "standard_name": "DateSent",
+      "field_type": "DateTimeField",
+      "normalizations": [
+        {
+          "original_name": "DateSent",
+          "transformation_type": "datetime_iso_normalization",
+          "timestamp": "2025-09-19T12:56:05.673598",
+          "sample_values": []
+        },
+        {
+          "original_name": "DateSent",
+          "transformation_type": "datetime_iso_normalization",
+          "timestamp": "2025-09-19T13:03:11.310250",
+          "sample_values": []
+        },
+        {
+          "original_name": "DateSent",
+          "transformation_type": "datetime_iso_normalization",
+          "timestamp": "2025-09-19T13:03:53.138667",
+          "sample_values": []
+        },
+        {
+          "original_name": "DateSent",
+          "transformation_type": "datetime_iso_normalization",
+          "timestamp": "2025-09-19T13:04:28.852195",
+          "sample_values": []
+        },
+        {
+          "original_name": "DateSent",
+          "transformation_type": "datetime_iso_normalization",
+          "timestamp": "2025-09-19T13:07:45.643828",
+          "sample_values": []
+        }
+      ],
+      "source_mappings": [
+        "DateSent"
+      ],
+      "transformation_history": [
+        "datetime_iso_normalization",
+        "datetime_iso_normalization",
+        "datetime_iso_normalization",
+        "datetime_iso_normalization",
+        "datetime_iso_normalization"
+      ],
+      "data_samples": []
+    },
+    "DateCreated": {
+      "standard_name": "DateCreated",
+      "field_type": "DateField",
+      "normalizations": [
+        {
+          "original_name": "DateCreated",
+          "transformation_type": "date_iso_normalization",
+          "timestamp": "2025-09-19T12:56:05.693560",
+          "sample_values": [
+            "11/12/2012 20:11:25",
+            "09/11/2003 22:06:37",
+            "07/14/2010 03:12:26"
+          ]
+        },
+        {
+          "original_name": "DateCreated",
+          "transformation_type": "date_iso_normalization",
+          "timestamp": "2025-09-19T13:03:11.327254",
+          "sample_values": [
+            "11/12/2012 20:11:25",
+            "09/11/2003 22:06:37",
+            "07/14/2010 03:12:26"
+          ]
+        },
+        {
+          "original_name": "DateCreated",
+          "transformation_type": "date_iso_normalization",
+          "timestamp": "2025-09-19T13:03:53.159690",
+          "sample_values": [
+            "11/12/2012 20:11:25",
+            "09/11/2003 22:06:37",
+            "07/14/2010 03:12:26"
+          ]
+        },
+        {
+          "original_name": "DateCreated",
+          "transformation_type": "date_iso_normalization",
+          "timestamp": "2025-09-19T13:04:28.872134",
+          "sample_values": [
+            "11/12/2012 20:11:25",
+            "09/11/2003 22:06:37",
+            "07/14/2010 03:12:26"
+          ]
+        },
+        {
+          "original_name": "DateCreated",
+          "transformation_type": "date_iso_normalization",
+          "timestamp": "2025-09-19T13:07:45.663762",
+          "sample_values": [
+            "11/12/2012 20:11:25",
+            "09/11/2003 22:06:37",
+            "07/14/2010 03:12:26"
+          ]
+        }
+      ],
+      "source_mappings": [
+        "DateCreated"
+      ],
+      "transformation_history": [
+        "date_iso_normalization",
+        "date_iso_normalization",
+        "date_iso_normalization",
+        "date_iso_normalization",
+        "date_iso_normalization"
+      ],
+      "data_samples": []
+    },
+    "DateLastModified": {
+      "standard_name": "DateLastModified",
+      "field_type": "DateField",
+      "normalizations": [
+        {
+          "original_name": "DateLastModified",
+          "transformation_type": "date_iso_normalization",
+          "timestamp": "2025-09-19T12:56:05.711186",
+          "sample_values": [
+            "06/30/1999 00:59:56",
+            "09/11/2003 22:06:38",
+            "10/12/2007 21:44:58"
+          ]
+        },
+        {
+          "original_name": "DateLastModified",
+          "transformation_type": "date_iso_normalization",
+          "timestamp": "2025-09-19T13:03:11.342409",
+          "sample_values": [
+            "06/30/1999 00:59:56",
+            "09/11/2003 22:06:38",
+            "10/12/2007 21:44:58"
+          ]
+        },
+        {
+          "original_name": "DateLastModified",
+          "transformation_type": "date_iso_normalization",
+          "timestamp": "2025-09-19T13:03:53.177277",
+          "sample_values": [
+            "06/30/1999 00:59:56",
+            "09/11/2003 22:06:38",
+            "10/12/2007 21:44:58"
+          ]
+        },
+        {
+          "original_name": "DateLastModified",
+          "transformation_type": "date_iso_normalization",
+          "timestamp": "2025-09-19T13:04:28.889647",
+          "sample_values": [
+            "06/30/1999 00:59:56",
+            "09/11/2003 22:06:38",
+            "10/12/2007 21:44:58"
+          ]
+        },
+        {
+          "original_name": "DateLastModified",
+          "transformation_type": "date_iso_normalization",
+          "timestamp": "2025-09-19T13:07:45.681672",
+          "sample_values": [
+            "06/30/1999 00:59:56",
+            "09/11/2003 22:06:38",
+            "10/12/2007 21:44:58"
+          ]
+        }
+      ],
+      "source_mappings": [
+        "DateLastModified"
+      ],
+      "transformation_history": [
+        "date_iso_normalization",
+        "date_iso_normalization",
+        "date_iso_normalization",
+        "date_iso_normalization",
+        "date_iso_normalization"
+      ],
+      "data_samples": []
+    }
+  },
+  "transformations": [],
+  "statistics": {
+    "total_normalizations": 15,
+    "date_fields_processed": 10,
+    "datetime_fields_processed": 5,
+    "text_fields_processed": 0
+  }
+}

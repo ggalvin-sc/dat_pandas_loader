@@ -44,9 +44,10 @@ class DataIntegrityTracker:
         self.memory_usage = {}
         self.processing_steps = []
 
-    def log_original_stats(self, file_path: str):
+    def log_original_stats(self, file_path):
         """Log original file statistics."""
-        self.original_file_size = os.path.getsize(file_path)
+        file_path = Path(file_path)
+        self.original_file_size = file_path.stat().st_size
         try:
             with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                 self.original_line_count = sum(1 for _ in f)
@@ -156,8 +157,9 @@ class EnhancedDATProcessor:
         logger.info(f"Logging initialized. Log file: {log_filename}")
         return logger
 
-    def detect_encoding(self, file_path: str) -> str:
+    def detect_encoding(self, file_path) -> str:
         """Detect file encoding with fallback strategies."""
+        file_path = Path(file_path)
         self.logger.info(f"Detecting encoding for: {file_path}")
 
         # Try chardet first
@@ -189,7 +191,7 @@ class EnhancedDATProcessor:
         self.logger.warning("Could not detect encoding, using utf-8 with error handling")
         return 'utf-8'
 
-    def _load_pandas_standard(self, file_path: str, encoding: str) -> pd.DataFrame:
+    def _load_pandas_standard(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using pandas with standard CSV detection."""
         self.logger.debug("Attempting pandas standard CSV loading")
 

@@ -1,0 +1,21 @@
+{
+  "_metadata": {
+    "description": "User-defined date field identification",
+    "created": "2025-09-19T13:03:42.085990",
+    "last_updated": "2025-09-19T13:03:53.128056"
+  },
+  "confirmed_date_fields": {},
+  "confirmed_datetime_fields": {},
+  "confirmed_text_fields": {
+    "EndAttach": {
+      "type": "TextField",
+      "confirmed_date": "2025-09-19T13:03:53.127322",
+      "sample_data": [
+        "3M_WFDPD_00000023",
+        "3M_WFDPD_00000025",
+        "3M_WFDPD_00000026"
+      ]
+    }
+  },
+  "pending_review": {}
+}

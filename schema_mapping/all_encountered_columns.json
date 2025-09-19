@@ -1,321 +1,619 @@
 {
-    "columns": {
-        "begbates": {
-            "count": 3,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "endbates": {
-            "count": 3,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "begattach": {
-            "count": 6,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "endattach": {
-            "count": 6,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "custodian": {
-            "count": 8,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "duplicate custodian": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "file name": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "subject": {
-            "count": 6,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "title": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "author": {
-            "count": 8,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "from": {
-            "count": 8,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "to": {
-            "count": 8,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "cc": {
-            "count": 8,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "bcc": {
-            "count": 8,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "datesent": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "timesent": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "datereceived": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "timereceived": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "datecreated": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "timecreated": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "datelastmodified": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "fileextension": {
-            "count": 3,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "redacted": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "confidentiality": {
-            "count": 8,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "message-id": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "foreign language": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "hash value": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "page count": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "production volume": {
-            "count": 3,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "full text": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "native link": {
-            "count": 1,
-            "first_seen": "2025-02-23T17:08:16.279218"
-        },
-        "prodbeg": {
-            "count": 1,
-            "first_seen": "2025-02-23T17:10:48.279185"
-        },
-        "prodend": {
-            "count": 1,
-            "first_seen": "2025-02-23T17:10:48.279185"
-        },
-        "nativelink": {
-            "count": 5,
-            "first_seen": "2025-02-23T17:10:48.279185"
-        },
-        "textlink": {
-            "count": 1,
-            "first_seen": "2025-02-23T17:10:48.279185"
-        },
-        "confidential designation": {
-            "count": 1,
-            "first_seen": "2025-02-23T17:10:48.279185"
-        },
-        "bates number begin": {
-            "count": 2,
-            "first_seen": "2025-02-23T17:14:31.436559"
-        },
-        "bates number end": {
-            "count": 2,
-            "first_seen": "2025-02-23T17:14:31.436559"
-        },
-        "attachment begin": {
-            "count": 2,
-            "first_seen": "2025-02-23T17:14:31.436559"
-        },
-        "attachment end": {
-            "count": 2,
-            "first_seen": "2025-02-23T17:14:31.436559"
-        },
-        "family range": {
-            "count": 2,
-            "first_seen": "2025-02-23T17:14:31.436559"
-        },
-        "file extension": {
-            "count": 2,
-            "first_seen": "2025-02-23T17:14:31.436559"
-        },
-        "email subject": {
-            "count": 2,
-            "first_seen": "2025-02-23T17:14:31.436559"
-        },
-        "file path": {
-            "count": 2,
-            "first_seen": "2025-02-23T17:14:31.436559"
-        },
-        "firstbates": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "lastbates": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "attachrange": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "parent_bates": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "child_bates": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "all_custodian": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "file_size": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "pgcount": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "path": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "md5hash": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "ocrpath": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "file_name": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "date_sent": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "time_sent/time_zone": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "time_zone": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "link": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "mime_type": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "file_exten": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "last_author": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "date_created": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "time_created/time_zone": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "date_mod": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "time_mod/time_zone": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "date_accessed": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "time_accessed/time_zone": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "printed_date": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "intfilepath": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "intmsgid": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "conversation_group": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "conversation_start_date": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "conversation_start_time/time_zone": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "conversation_end_date": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "conversation_end_time/time_zone": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "mobile_source_app": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        },
-        "mobile_source_app_account": {
-            "count": 3,
-            "first_seen": "2025-02-24T08:55:27.123443"
-        }
+  "columns": {
+    "document_id": {
+      "original_variations": [
+        "Document_ID"
+      ],
+      "first_seen": "2025-09-19T12:32:22.804607",
+      "first_seen_file": "test_tracking.dat",
+      "occurrence_count": 1,
+      "files_seen_in": [
+        "test_tracking.dat"
+      ],
+      "common_patterns": []
     },
-    "last_updated": "2025-02-24T09:01:11.718903"
+    "creation_date": {
+      "original_variations": [
+        "Creation_Date"
+      ],
+      "first_seen": "2025-09-19T12:32:22.804607",
+      "first_seen_file": "test_tracking.dat",
+      "occurrence_count": 1,
+      "files_seen_in": [
+        "test_tracking.dat"
+      ],
+      "common_patterns": []
+    },
+    "author_name": {
+      "original_variations": [
+        "Author_Name"
+      ],
+      "first_seen": "2025-09-19T12:32:22.804607",
+      "first_seen_file": "test_tracking.dat",
+      "occurrence_count": 1,
+      "files_seen_in": [
+        "test_tracking.dat"
+      ],
+      "common_patterns": []
+    },
+    "subject_line": {
+      "original_variations": [
+        "Subject_Line"
+      ],
+      "first_seen": "2025-09-19T12:32:22.804607",
+      "first_seen_file": "test_tracking.dat",
+      "occurrence_count": 1,
+      "files_seen_in": [
+        "test_tracking.dat"
+      ],
+      "common_patterns": []
+    },
+    "file_size": {
+      "original_variations": [
+        "File_Size"
+      ],
+      "first_seen": "2025-09-19T12:32:22.804607",
+      "first_seen_file": "test_tracking.dat",
+      "occurrence_count": 1,
+      "files_seen_in": [
+        "test_tracking.dat"
+      ],
+      "common_patterns": []
+    },
+    "documentid": {
+      "original_variations": [
+        "DocumentID"
+      ],
+      "first_seen": "2025-09-19T12:32:47.182183",
+      "first_seen_file": "test_tracking2.dat",
+      "occurrence_count": 1,
+      "files_seen_in": [
+        "test_tracking2.dat"
+      ],
+      "common_patterns": []
+    },
+    "creationtimestamp": {
+      "original_variations": [
+        "CreationTimestamp"
+      ],
+      "first_seen": "2025-09-19T12:32:47.182183",
+      "first_seen_file": "test_tracking2.dat",
+      "occurrence_count": 1,
+      "files_seen_in": [
+        "test_tracking2.dat"
+      ],
+      "common_patterns": []
+    },
+    "authoremail": {
+      "original_variations": [
+        "AuthorEmail"
+      ],
+      "first_seen": "2025-09-19T12:32:47.182183",
+      "first_seen_file": "test_tracking2.dat",
+      "occurrence_count": 1,
+      "files_seen_in": [
+        "test_tracking2.dat"
+      ],
+      "common_patterns": []
+    },
+    "filetitle": {
+      "original_variations": [
+        "FileTitle"
+      ],
+      "first_seen": "2025-09-19T12:32:47.182183",
+      "first_seen_file": "test_tracking2.dat",
+      "occurrence_count": 1,
+      "files_seen_in": [
+        "test_tracking2.dat"
+      ],
+      "common_patterns": []
+    },
+    "filesizebytes": {
+      "original_variations": [
+        "FileSizeBytes"
+      ],
+      "first_seen": "2025-09-19T12:32:47.182183",
+      "first_seen_file": "test_tracking2.dat",
+      "occurrence_count": 1,
+      "files_seen_in": [
+        "test_tracking2.dat"
+      ],
+      "common_patterns": []
+    },
+    "prodbeg": {
+      "original_variations": [
+        "ProdBeg"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "prodend": {
+      "original_variations": [
+        "ProdEnd"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "prodbegattach": {
+      "original_variations": [
+        "ProdBegAttach"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "prodendattach": {
+      "original_variations": [
+        "ProdEndAttach"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "custodian": {
+      "original_variations": [
+        "Custodian"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "deduped custodians": {
+      "original_variations": [
+        "Deduped Custodians"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "from": {
+      "original_variations": [
+        "From"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "to": {
+      "original_variations": [
+        "To"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "cc": {
+      "original_variations": [
+        "CC"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "bcc": {
+      "original_variations": [
+        "BCC"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "email subject": {
+      "original_variations": [
+        "Email Subject"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "email sent date": {
+      "original_variations": [
+        "Email Sent Date"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "filename": {
+      "original_variations": [
+        "FileName"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "file type": {
+      "original_variations": [
+        "File Type"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "fileextension": {
+      "original_variations": [
+        "FileExtension"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "esi type": {
+      "original_variations": [
+        "ESI Type"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "original file path": {
+      "original_variations": [
+        "Original File Path"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "deduped path": {
+      "original_variations": [
+        "Deduped Path"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "date created": {
+      "original_variations": [
+        "Date Created"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "date modified": {
+      "original_variations": [
+        "Date Modified"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "title": {
+      "original_variations": [
+        "Title"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "author": {
+      "original_variations": [
+        "Author"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "confidentiality": {
+      "original_variations": [
+        "Confidentiality"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "hash": {
+      "original_variations": [
+        "Hash"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "nativelink": {
+      "original_variations": [
+        "NativeLink"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    },
+    "textlink": {
+      "original_variations": [
+        "TextLink"
+      ],
+      "first_seen": "2025-09-19T12:33:32.463917",
+      "first_seen_file": "20250227_Weatherford_Production.dat",
+      "occurrence_count": 13,
+      "files_seen_in": [
+        "20250227_Weatherford_Production.dat"
+      ],
+      "common_patterns": []
+    }
+  },
+  "last_updated": "2025-02-24T09:01:11.718903",
+  "_metadata": {
+    "description": "Comprehensive tracking of all column names encountered across DAT files",
+    "created": "2025-09-19T12:32:22.804681",
+    "total_unique_columns": 36,
+    "total_files_processed": 15,
+    "last_updated": "2025-09-19T13:07:39.410353"
+  },
+  "patterns": {
+    "common_prefixes": {
+      "doc": 2,
+      "docu": 2,
+      "docum": 2,
+      "cre": 2,
+      "crea": 2,
+      "creat": 2,
+      "aut": 15,
+      "auth": 15,
+      "autho": 15,
+      "sub": 1,
+      "subj": 1,
+      "subje": 1,
+      "fil": 42,
+      "file": 42,
+      "file_": 1,
+      "filet": 1,
+      "files": 1,
+      "pro": 52,
+      "prod": 52,
+      "prodb": 26,
+      "prode": 26,
+      "cus": 13,
+      "cust": 13,
+      "custo": 13,
+      "ded": 26,
+      "dedu": 26,
+      "dedup": 26,
+      "fro": 13,
+      "ema": 26,
+      "emai": 26,
+      "email": 26,
+      "filen": 13,
+      "file ": 13,
+      "filee": 13,
+      "esi": 13,
+      "esi ": 13,
+      "esi t": 13,
+      "ori": 13,
+      "orig": 13,
+      "origi": 13,
+      "dat": 26,
+      "date": 26,
+      "date ": 26,
+      "tit": 13,
+      "titl": 13,
+      "con": 13,
+      "conf": 13,
+      "confi": 13,
+      "has": 13,
+      "nat": 13,
+      "nati": 13,
+      "nativ": 13,
+      "tex": 13,
+      "text": 13,
+      "textl": 13
+    },
+    "common_suffixes": {
+      "_id": 1,
+      "t_id": 1,
+      "nt_id": 1,
+      "ate": 14,
+      "date": 14,
+      "_date": 1,
+      "ame": 14,
+      "name": 14,
+      "_name": 1,
+      "ine": 1,
+      "line": 1,
+      "_line": 1,
+      "ize": 1,
+      "size": 1,
+      "_size": 1,
+      "tid": 1,
+      "ntid": 1,
+      "entid": 1,
+      "amp": 1,
+      "tamp": 1,
+      "stamp": 1,
+      "ail": 1,
+      "mail": 1,
+      "email": 1,
+      "tle": 14,
+      "itle": 14,
+      "title": 1,
+      "tes": 1,
+      "ytes": 1,
+      "bytes": 1,
+      "beg": 13,
+      "dbeg": 13,
+      "odbeg": 13,
+      "end": 13,
+      "dend": 13,
+      "odend": 13,
+      "ach": 26,
+      "tach": 26,
+      "ttach": 26,
+      "ian": 13,
+      "dian": 13,
+      "odian": 13,
+      "ans": 13,
+      "ians": 13,
+      "dians": 13,
+      "rom": 13,
+      "ect": 13,
+      "ject": 13,
+      "bject": 13,
+      " date": 13,
+      "ename": 13,
+      "ype": 26,
+      "type": 26,
+      " type": 26,
+      "ion": 13,
+      "sion": 13,
+      "nsion": 13,
+      "ath": 26,
+      "path": 26,
+      " path": 26,
+      "ted": 13,
+      "ated": 13,
+      "eated": 13,
+      "ied": 13,
+      "fied": 13,
+      "ified": 13,
+      "hor": 13,
+      "thor": 13,
+      "uthor": 13,
+      "ity": 13,
+      "lity": 13,
+      "ality": 13,
+      "ash": 13,
+      "ink": 26,
+      "link": 26,
+      "elink": 13,
+      "tlink": 13
+    },
+    "common_words": {
+      "document": 1,
+      "creation": 2,
+      "author": 14,
+      "name": 1,
+      "subject": 14,
+      "line": 1,
+      "file": 27,
+      "size": 1,
+      "documentid": 1,
+      "stamp": 1,
+      "authoremail": 1,
+      "filetitle": 1,
+      "filesizebytes": 1,
+      "prod": 52,
+      "attach": 26,
+      "custodian": 13,
+      "deduped": 26,
+      "custodians": 13,
+      "from": 13,
+      "bcc": 13,
+      "email": 26,
+      "sent": 13,
+      "filename": 13,
+      "type": 26,
+      "fileextension": 13,
+      "esi": 13,
+      "original": 13,
+      "path": 26,
+      "created": 13,
+      "modified": 13,
+      "title": 13,
+      "confidentiality": 13,
+      "hash": 13,
+      "nativelink": 13,
+      "textlink": 13
+    }
+  }
 }

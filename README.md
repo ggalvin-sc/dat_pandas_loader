@@ -61,6 +61,10 @@ dat_pandas_loader/
 - **📈 Comprehensive Analysis**: 8 different delimiter tests with detailed reporting
 - **📋 Spreadsheet Output**: Clean tabular text files for data review
 - **🧹 Data Cleaning**: Automatic removal of delimiter artifacts
+- **🎯 Column Standardization**: Smart mapping system for consistent column names
+- **🔍 Schema Fingerprinting**: Automatic detection of known file formats
+- **📊 Column Tracking**: Comprehensive logging of all encountered column types
+- **🤖 Smart Suggestions**: AI-powered recommendations based on historical data
 - **📁 Multiple Formats**: Export to CSV, Excel, Parquet, JSON
 - **🔧 Robust Processing**: Multiple loading strategies with fallbacks
 - **📝 Detailed Logging**: Complete integrity tracking and error reporting
@@ -87,6 +91,7 @@ Specifically designed to handle documents with special delimiter characters comm
 | Tool | Purpose | Usage |
 |------|---------|-------|
 | `dat_loader.py` | Core module for Python integration | `from src.dat_loader import load_dat_file` |
+| `dat_dataframe_normalized.py` | **🆕 Interactive column standardization and schema mapping** | `python src/dat_dataframe_normalized.py file.dat --interactive` |
 | `preview_dat_data.py` | Enhanced analysis with spreadsheet output | `python src/preview_dat_data.py file.dat` |
 | `dat_processor.py` | Full-featured command-line processor | `python src/dat_processor.py file.dat output.csv` |
 | `dataframe_view.py` | Complete DataFrame demonstration | `python src/dataframe_view.py file.dat` |

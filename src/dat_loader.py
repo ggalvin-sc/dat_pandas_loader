@@ -16,7 +16,7 @@ import chardet
 import warnings
 from typing import Optional, Dict, Any, List, Tuple
 import logging
-import os
+from pathlib import Path
 
 # Suppress pandas warnings for cleaner output
 warnings.filterwarnings('ignore', category=pd.errors.DtypeWarning)
@@ -54,7 +54,7 @@ class DATLoader:
         if self.verbose and self.logger:
             getattr(self.logger, level)(message)
 
-    def detect_encoding(self, file_path: str) -> str:
+    def detect_encoding(self, file_path) -> str:
         """
         Detect file encoding with fallback strategies.
 
@@ -64,6 +64,7 @@ class DATLoader:
         Returns:
             str: The detected or fallback encoding
         """
+        file_path = Path(file_path)
         self._log(f"Detecting encoding for: {file_path}")
 
         # Try chardet first
@@ -95,7 +96,7 @@ class DATLoader:
         self._log("Could not detect encoding, using utf-8 with error handling", 'warning')
         return 'utf-8'
 
-    def _load_pandas_standard(self, file_path: str, encoding: str) -> pd.DataFrame:
+    def _load_pandas_standard(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using pandas with standard CSV detection."""
         return pd.read_csv(
             file_path,
@@ -105,7 +106,7 @@ class DATLoader:
             dtype=str
         )
 
-    def _load_pandas_tab(self, file_path: str, encoding: str) -> pd.DataFrame:
+    def _load_pandas_tab(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using pandas with tab delimiter."""
         return pd.read_csv(
             file_path,
@@ -116,7 +117,7 @@ class DATLoader:
             dtype=str
         )
 
-    def _load_pandas_special_delimiter(self, file_path: str, encoding: str) -> pd.DataFrame:
+    def _load_pandas_special_delimiter(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using pandas with special delimiters (þ, \x14)."""
         special_delimiters = ['þ', '\x14']
 
@@ -173,7 +174,7 @@ class DATLoader:
 
         raise Exception("No special delimiter worked")
 
-    def _load_pandas_fixed_width(self, file_path: str, encoding: str) -> pd.DataFrame:
+    def _load_pandas_fixed_width(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using pandas with fixed-width detection."""
         return pd.read_fwf(
             file_path,
@@ -181,7 +182,7 @@ class DATLoader:
             dtype=str
         )
 
-    def _load_pandas_csv_sniffer(self, file_path: str, encoding: str) -> pd.DataFrame:
+    def _load_pandas_csv_sniffer(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using pandas with CSV dialect detection."""
         import csv
 
@@ -201,7 +202,7 @@ class DATLoader:
             dtype=str
         )
 
-    def _load_manual_parsing(self, file_path: str, encoding: str) -> pd.DataFrame:
+    def _load_manual_parsing(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using manual line-by-line parsing."""
         rows = []
         max_cols = 0
@@ -234,7 +235,7 @@ class DATLoader:
 
         return pd.DataFrame(rows, columns=columns)
 
-    def load(self, file_path: str, encoding: Optional[str] = None, clean: bool = False) -> pd.DataFrame:
+    def load(self, file_path, encoding: Optional[str] = None, clean: bool = False) -> pd.DataFrame:
         """
         Load a DAT file into a pandas DataFrame using multiple fallback strategies.
 
@@ -249,7 +250,8 @@ class DATLoader:
         Raises:
             Exception: If all loading methods fail
         """
-        if not os.path.exists(file_path):
+        file_path = Path(file_path)
+        if not file_path.exists():
             raise FileNotFoundError(f"File not found: {file_path}")
 
         self._log(f"Loading DAT file: {file_path}")
@@ -318,7 +320,7 @@ class DATLoader:
 
 
 # Convenience functions for easy importing
-def load_dat_file(file_path: str, encoding: Optional[str] = None,
+def load_dat_file(file_path, encoding: Optional[str] = None,
                   clean: bool = False, verbose: bool = False) -> pd.DataFrame:
     """
     Load a DAT file into a pandas DataFrame.
@@ -351,7 +353,7 @@ def load_dat_file(file_path: str, encoding: Optional[str] = None,
     return loader.load(file_path, encoding=encoding, clean=clean)
 
 
-def quick_load(file_path: str) -> pd.DataFrame:
+def quick_load(file_path) -> pd.DataFrame:
     """
     Quick load a DAT file with minimal output.
 
@@ -368,7 +370,7 @@ def quick_load(file_path: str) -> pd.DataFrame:
     return load_dat_file(file_path, verbose=False)
 
 
-def load_and_clean(file_path: str, verbose: bool = True) -> pd.DataFrame:
+def load_and_clean(file_path, verbose: bool = True) -> pd.DataFrame:
     """
     Load a DAT file and automatically clean the data.
 
@@ -390,7 +392,7 @@ def load_and_clean(file_path: str, verbose: bool = True) -> pd.DataFrame:
     return load_dat_file(file_path, clean=True, verbose=verbose)
 
 
-def get_dat_info(file_path: str) -> Dict[str, Any]:
+def get_dat_info(file_path) -> Dict[str, Any]:
     """
     Get basic information about a DAT file without fully loading it.
 
@@ -411,13 +413,14 @@ def get_dat_info(file_path: str) -> Dict[str, Any]:
             'sample_lines': ['col1,col2,col3', 'data1,data2,data3']
         }
     """
-    if not os.path.exists(file_path):
+    file_path = Path(file_path)
+    if not file_path.exists():
         raise FileNotFoundError(f"File not found: {file_path}")
 
     loader = DATLoader(verbose=False)
 
     # Get file size
-    file_size = os.path.getsize(file_path)
+    file_size = file_path.stat().st_size
 
     # Detect encoding
     encoding = loader.detect_encoding(file_path)
