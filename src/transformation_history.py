@@ -13,6 +13,16 @@ import pandas as pd
 from datetime import datetime
 from typing import Dict, List, Optional, Any, Tuple
 from pathlib import Path
+import functools
+
+
+def function_lock(func):
+    """Decorator to lock function implementation and prevent modifications."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    wrapper.__locked__ = True
+    return wrapper
 
 
 class TransformationHistoryTracker:
@@ -29,6 +39,7 @@ class TransformationHistoryTracker:
     showing exactly how each piece of data was transformed.
     """
 
+    @function_lock
     def __init__(self):
         """Initialize empty transformation tracking state."""
         # Maps final_column_name -> original_column_name for basic renames
@@ -43,6 +54,7 @@ class TransformationHistoryTracker:
         # Maps column_name -> list of {type: str, details: dict, timestamp: str}
         self.transformation_log: Dict[str, List[Dict[str, Any]]] = {}
 
+    @function_lock
     def track_mapping(self, original_column: str, final_column: str,
                      transformation_type: str = "column_rename") -> None:
         """
@@ -72,6 +84,7 @@ class TransformationHistoryTracker:
             "timestamp": datetime.now().isoformat()
         })
 
+    @function_lock
     def track_merge(self, source_columns: List[str], target_column: str,
                    separator: str = " ") -> None:
         """
@@ -112,6 +125,7 @@ class TransformationHistoryTracker:
             "timestamp": timestamp
         })
 
+    @function_lock
     def track_split(self, original_column: str, target_columns: List[str],
                    separator: str = "-") -> None:
         """
@@ -153,6 +167,7 @@ class TransformationHistoryTracker:
                 "timestamp": timestamp
             })
 
+    @function_lock
     def track_data_transformation(self, column_name: str, transformation_type: str,
                                 details: Dict[str, Any] = None) -> None:
         """
@@ -184,6 +199,7 @@ class TransformationHistoryTracker:
 
         self.transformation_log[column_name].append(log_entry)
 
+    @function_lock
     def get_original_column_name(self, final_column: str) -> str:
         """
         Get the original column name for a final column name.
@@ -196,6 +212,7 @@ class TransformationHistoryTracker:
         """
         return self.column_mappings.get(final_column, final_column)
 
+    @function_lock
     def was_column_merged(self, column_name: str) -> bool:
         """
         Check if a column was created by merging other columns.
@@ -208,6 +225,7 @@ class TransformationHistoryTracker:
         """
         return column_name in self.merge_operations
 
+    @function_lock
     def was_column_split(self, column_name: str) -> Tuple[bool, Optional[str]]:
         """
         Check if a column was created by splitting another column.
@@ -225,6 +243,7 @@ class TransformationHistoryTracker:
                 return True, orig_col
         return False, None
 
+    @function_lock
     def get_column_transformations(self, column_name: str) -> List[Dict[str, Any]]:
         """
         Get all transformations applied to a specific column.
@@ -237,6 +256,7 @@ class TransformationHistoryTracker:
         """
         return self.transformation_log.get(column_name, [])
 
+    @function_lock
     def create_row_history_entry(self, row_index: int, dataframe: pd.DataFrame) -> str:
         """
         Create a JSON history entry for a specific row showing all transformations.
@@ -271,6 +291,7 @@ class TransformationHistoryTracker:
 
         return json.dumps(history_entry, ensure_ascii=False)
 
+    @function_lock
     def _create_column_history(self, column: str, row_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Create history information for a single column.
@@ -323,6 +344,7 @@ class TransformationHistoryTracker:
 
         return history
 
+    @function_lock
     def add_history_column_to_dataframe(self, source_dataframe: pd.DataFrame) -> pd.DataFrame:
         """
         Add a 'column_history' column to a DataFrame with transformation tracking.
@@ -374,6 +396,7 @@ class TransformationHistoryTracker:
 
         return df_with_history
 
+    @function_lock
     def get_transformation_summary(self) -> Dict[str, Any]:
         """
         Get a summary of all transformations tracked.

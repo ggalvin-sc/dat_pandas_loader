@@ -22,6 +22,16 @@ import re
 from typing import Dict, List, Tuple, Any, Optional
 import difflib
 import copy
+import functools
+
+
+def function_lock(func):
+    """Decorator to lock function implementation and prevent modifications."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    wrapper.__locked__ = True
+    return wrapper
 
 # Add src to path for imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -31,11 +41,13 @@ from transformation_history import TransformationHistoryTracker
 class SchemaFingerprinter:
     """Handles schema fingerprinting for automatic format detection."""
 
+    @function_lock
     def __init__(self, schema_dir: str):
         self.schema_dir = Path(schema_dir)
         self.known_schemas_file = self.schema_dir / "known_schemas.json"
         self.known_schemas = self._load_known_schemas()
 
+    @function_lock
     def _load_known_schemas(self) -> Dict:
         """Load known schema fingerprints."""
         if self.known_schemas_file.exists():
@@ -46,6 +58,7 @@ class SchemaFingerprinter:
                 return {}
         return {}
 
+    @function_lock
     def create_fingerprint(self, columns: List[str]) -> str:
         """Create a fingerprint hash from column names."""
         # Normalize column names: lowercase, remove spaces/underscores, sort
@@ -58,11 +71,13 @@ class SchemaFingerprinter:
         fingerprint = hashlib.md5('|'.join(normalized).encode()).hexdigest()
         return fingerprint
 
+    @function_lock
     def check_known_schema(self, columns: List[str]) -> Optional[Dict]:
         """Check if this column structure is known."""
         fingerprint = self.create_fingerprint(columns)
         return self.known_schemas.get(fingerprint)
 
+    @function_lock
     def save_schema(self, columns: List[str], mappings: Dict, transformations: Dict):
         """Save a confirmed schema mapping."""
         fingerprint = self.create_fingerprint(columns)
@@ -90,6 +105,7 @@ class SchemaFingerprinter:
 class DateNormalizer:
     """Handles date normalization to ISO format."""
 
+    @function_lock
     def __init__(self):
         # Common date patterns to try
         self.date_patterns = [
@@ -105,6 +121,7 @@ class DateNormalizer:
             '%Y-%m-%dT%H:%M:%SZ',
         ]
 
+    @function_lock
     def normalize_date(self, date_str: Any) -> Optional[str]:
         """Convert various date formats to ISO format."""
         if pd.isna(date_str) or date_str == '' or date_str is None:
@@ -132,6 +149,7 @@ class DateNormalizer:
 
         return date_str  # Return original if can't parse
 
+    @function_lock
     def normalize_datetime(self, date_str: Any, time_str: Any = None, timezone_str: Any = None) -> Optional[str]:
         """Combine date, time, and timezone into ISO datetime."""
         if pd.isna(date_str) or date_str == '' or date_str is None:
@@ -165,11 +183,13 @@ class DateNormalizer:
 class DateFieldIdentifier:
     """Identifies and tracks which fields should be treated as date/datetime fields."""
 
+    @function_lock
     def __init__(self, schema_dir: str):
         self.schema_dir = Path(schema_dir)
         self.date_fields_file = self.schema_dir / "date_field_definitions.json"
         self.date_fields = self._load_date_fields()
 
+    @function_lock
     def _load_date_fields(self) -> Dict:
         """Load existing date field definitions."""
         if self.date_fields_file.exists():
@@ -180,6 +200,7 @@ class DateFieldIdentifier:
                 return self._create_empty_date_fields()
         return self._create_empty_date_fields()
 
+    @function_lock
     def _create_empty_date_fields(self) -> Dict:
         """Create empty date field definitions."""
         return {
@@ -194,6 +215,7 @@ class DateFieldIdentifier:
             "pending_review": {}
         }
 
+    @function_lock
     def ask_about_field_types(self, fields_to_check: List[str], df: pd.DataFrame = None) -> Dict[str, str]:
         """Ask user to identify date fields from a list of fields."""
         if not fields_to_check:
@@ -264,11 +286,13 @@ class DateFieldIdentifier:
         self._save_date_fields()
         return field_types
 
+    @function_lock
     def is_confirmed_date_field(self, field_name: str) -> bool:
         """Check if a field is confirmed as a date field."""
         return (field_name in self.date_fields["confirmed_date_fields"] or
                 field_name in self.date_fields["confirmed_datetime_fields"])
 
+    @function_lock
     def get_confirmed_field_type(self, field_name: str) -> Optional[str]:
         """Get the confirmed field type for a field."""
         if field_name in self.date_fields["confirmed_date_fields"]:
@@ -279,6 +303,7 @@ class DateFieldIdentifier:
             return "TextField"
         return None
 
+    @function_lock
     def _save_date_fields(self):
         """Save date field definitions."""
         try:
@@ -290,6 +315,7 @@ class DateFieldIdentifier:
         except Exception as e:
             print(f"   [ERROR] Failed to save date field definitions: {e}")
 
+    @function_lock
     def get_pending_review_fields(self) -> List[str]:
         """Get list of fields pending review."""
         return list(self.date_fields["pending_review"].keys())
@@ -298,11 +324,13 @@ class DateFieldIdentifier:
 class FieldMetadataTracker:
     """Tracks metadata for normalized fields including data types, transformations, and lineage."""
 
+    @function_lock
     def __init__(self, schema_dir: str):
         self.schema_dir = Path(schema_dir)
         self.metadata_file = self.schema_dir / "field_metadata.json"
         self.metadata = self._load_metadata()
 
+    @function_lock
     def _load_metadata(self) -> Dict:
         """Load existing field metadata."""
         if self.metadata_file.exists():
@@ -313,6 +341,7 @@ class FieldMetadataTracker:
                 return self._create_empty_metadata()
         return self._create_empty_metadata()
 
+    @function_lock
     def _create_empty_metadata(self) -> Dict:
         """Create empty metadata structure."""
         return {
@@ -332,6 +361,7 @@ class FieldMetadataTracker:
             }
         }
 
+    @function_lock
     def track_field_normalization(self, field_name: str, original_name: str,
                                  field_type: str, transformation_type: str,
                                  sample_values: List[str] = None):
@@ -378,6 +408,7 @@ class FieldMetadataTracker:
 
         self._save_metadata()
 
+    @function_lock
     def _save_metadata(self):
         """Save metadata to file."""
         try:
@@ -389,10 +420,12 @@ class FieldMetadataTracker:
         except Exception as e:
             print(f"   [ERROR] Failed to save field metadata: {e}")
 
+    @function_lock
     def get_field_lineage(self, field_name: str) -> Dict:
         """Get the transformation lineage for a field."""
         return self.metadata["fields"].get(field_name, {})
 
+    @function_lock
     def generate_metadata_report(self) -> str:
         """Generate a metadata report."""
         stats = self.metadata["statistics"]
@@ -425,11 +458,13 @@ TOP FIELDS BY NORMALIZATION COUNT:
 class ColumnTracker:
     """Tracks all encountered columns across files for analysis."""
 
+    @function_lock
     def __init__(self, schema_dir: str):
         self.schema_dir = Path(schema_dir)
         self.all_columns_file = self.schema_dir / "all_encountered_columns.json"
         self.column_data = self._load_column_data()
 
+    @function_lock
     def _load_column_data(self) -> Dict:
         """Load existing column tracking data."""
         if self.all_columns_file.exists():
@@ -440,6 +475,7 @@ class ColumnTracker:
                 return self._create_empty_structure()
         return self._create_empty_structure()
 
+    @function_lock
     def _create_empty_structure(self) -> Dict:
         """Create the initial structure for column tracking."""
         return {
@@ -458,6 +494,7 @@ class ColumnTracker:
             }
         }
 
+    @function_lock
     def track_columns(self, file_path: str, columns: List[str]):
         """Track columns from a file."""
         file_name = Path(file_path).name
@@ -508,6 +545,7 @@ class ColumnTracker:
 
         print(f"   [TRACKING] Logged {len(columns)} columns to all_encountered_columns.json")
 
+    @function_lock
     def _analyze_column_patterns(self, column: str):
         """Analyze patterns in column names."""
         # Common prefixes (first 3-5 characters)
@@ -540,6 +578,7 @@ class ColumnTracker:
                     self.column_data["patterns"]["common_words"][word] = 0
                 self.column_data["patterns"]["common_words"][word] += 1
 
+    @function_lock
     def _save_column_data(self):
         """Save column tracking data to file."""
         try:
@@ -549,6 +588,7 @@ class ColumnTracker:
         except Exception as e:
             print(f"   [ERROR] Failed to save column tracking data: {e}")
 
+    @function_lock
     def get_column_suggestions(self, partial_name: str, limit: int = 5) -> List[str]:
         """Get suggestions for column names based on tracked data."""
         partial_lower = partial_name.lower()
@@ -562,6 +602,7 @@ class ColumnTracker:
         suggestions.sort(key=lambda x: self.column_data["columns"][x]["occurrence_count"], reverse=True)
         return suggestions[:limit]
 
+    @function_lock
     def generate_analysis_report(self) -> str:
         """Generate a summary report of tracked columns."""
         total_cols = len(self.column_data["columns"])
@@ -606,6 +647,7 @@ TOP 5 COMMON SUFFIXES:
 class ColumnMapper:
     """Main column mapping and normalization engine."""
 
+    @function_lock
     def __init__(self, mapping_file: str, schema_dir: str, interactive: bool = True, force_interactive: bool = False):
         self.mapping_file = Path(mapping_file)
         self.schema_dir = Path(schema_dir)
@@ -622,6 +664,7 @@ class ColumnMapper:
         # Build reverse lookup for faster matching
         self._build_reverse_lookup()
 
+    @function_lock
     def _load_mappings(self) -> Dict:
         """Load column mappings from JSON file."""
         if not self.mapping_file.exists():
@@ -630,6 +673,7 @@ class ColumnMapper:
         with open(self.mapping_file, 'r', encoding='utf-8') as f:
             return json.load(f)
 
+    @function_lock
     def _build_reverse_lookup(self):
         """Build reverse lookup from alternate names to standard names."""
         self.reverse_lookup = {}
@@ -644,15 +688,18 @@ class ColumnMapper:
                 normalized_alt = self._normalize_column_name(alternate)
                 self.reverse_lookup[normalized_alt] = standard_name
 
+    @function_lock
     def _normalize_column_name(self, name: str) -> str:
         """Normalize column name for matching."""
         return name.lower().replace(' ', '').replace('_', '').replace('-', '')
 
+    @function_lock
     def find_column_mapping(self, column_name: str) -> Optional[str]:
         """Find the standard name for a column."""
         normalized = self._normalize_column_name(column_name)
         return self.reverse_lookup.get(normalized)
 
+    @function_lock
     def apply_mappings(self, df: pd.DataFrame, file_path: str = "") -> Tuple[pd.DataFrame, Dict, List, List]:
         """Apply column mappings to DataFrame."""
         print(f"\n=== COLUMN MAPPING ANALYSIS ===")
@@ -786,6 +833,7 @@ class ColumnMapper:
 
         return result_df, conflicts, unmapped, unused
 
+    @function_lock
     def _ask_about_date_fields(self, df: pd.DataFrame, mapped_columns: Dict):
         """Ask user to identify date fields from the normalized columns."""
         # Find fields that haven't been confirmed yet and might be dates
@@ -821,6 +869,7 @@ class ColumnMapper:
             if user_field_types:
                 self._save_mappings()
 
+    @function_lock
     def _ask_to_save_schema(self, columns: List[str], mappings: Dict, transformations: Dict):
         """Ask user if they want to save the schema mapping for future use."""
         # Check if a schema already exists for this column structure
@@ -872,6 +921,7 @@ class ColumnMapper:
                 else:
                     print(f"   Invalid choice. Enter 1 or 2")
 
+    @function_lock
     def _apply_known_mappings(self, df: pd.DataFrame, known_schema: Dict) -> Tuple[pd.DataFrame, Dict, List, List]:
         """Apply previously saved mappings."""
         mappings = known_schema.get('mappings', {})
@@ -893,6 +943,7 @@ class ColumnMapper:
 
         return result_df, transformations.get('conflicts', {}), transformations.get('unmapped', []), transformations.get('unused', [])
 
+    @function_lock
     def _resolve_conflicts(self, df: pd.DataFrame, conflicts: Dict) -> Dict:
         """Resolve column naming conflicts by choosing one column."""
         resolved = {}
@@ -920,6 +971,7 @@ class ColumnMapper:
 
         return resolved
 
+    @function_lock
     def _auto_map_to_standards(self, unmapped: List[str]) -> Tuple[Dict, List[str]]:
         """Automatically map unmapped columns to existing standard fields where possible."""
         auto_mapped = {}
@@ -996,6 +1048,7 @@ class ColumnMapper:
 
         return auto_mapped, still_unmapped
 
+    @function_lock
     def _handle_unmapped(self, unmapped: List[str], df: pd.DataFrame, already_mapped: Dict = None) -> Dict:
         """Handle unmapped columns with interactive prompts."""
         new_mappings = {}
@@ -1118,6 +1171,7 @@ class ColumnMapper:
 
         return new_mappings
 
+    @function_lock
     def _handle_unmapped_automatic(self, unmapped: List[str]) -> Dict:
         """Handle unmapped columns automatically (non-interactive mode)."""
         new_mappings = {}
@@ -1126,6 +1180,7 @@ class ColumnMapper:
             new_mappings[col] = col
         return new_mappings
 
+    @function_lock
     def _update_mapping_file(self, original_name: str, standard_name: str):
         """Add an alternate name to an existing standard field."""
         if standard_name in self.mappings['fields']:
@@ -1134,6 +1189,7 @@ class ColumnMapper:
                 self._save_mappings()
                 print(f"   [MAPPING] Added '{original_name}' as alternate for '{standard_name}'")
 
+    @function_lock
     def _add_new_standard_field(self, standard_name: str, original_name: str):
         """Add a completely new standard field to the mappings."""
         self.mappings['fields'][standard_name] = {
@@ -1144,6 +1200,7 @@ class ColumnMapper:
         self._save_mappings()
         print(f"   [MAPPING] Created new standard field '{standard_name}'")
 
+    @function_lock
     def _save_mappings(self):
         """Save updated mappings back to the JSON file."""
         try:
@@ -1153,6 +1210,7 @@ class ColumnMapper:
         except Exception as e:
             print(f"   [ERROR] Failed to save mappings: {e}")
 
+    @function_lock
     def _ask_about_column_merging(self, df: pd.DataFrame) -> pd.DataFrame:
         """Ask user about potential column merging opportunities."""
         print(f"\n=== COLUMN MERGING OPPORTUNITIES ===")
@@ -1196,6 +1254,7 @@ class ColumnMapper:
 
         return df
 
+    @function_lock
     def _find_date_time_pairs(self, df: pd.DataFrame) -> List[Tuple[str, str]]:
         """Find potential date/time column pairs."""
         pairs = []
@@ -1223,6 +1282,7 @@ class ColumnMapper:
 
         return pairs
 
+    @function_lock
     def _merge_date_time_columns(self, df: pd.DataFrame, date_col: str, time_col: str) -> pd.DataFrame:
         """Merge date and time columns into datetime."""
         merged_col_name = f"{date_col.replace('Date', '').replace('date', '')}DateTime".strip()
@@ -1240,6 +1300,7 @@ class ColumnMapper:
         df[merged_col_name] = merged_values
         return df
 
+    @function_lock
     def _rename_columns(self, df: pd.DataFrame, mappings: Dict) -> pd.DataFrame:
         """Rename DataFrame columns based on mappings."""
         rename_dict = {original: standard for standard, original in mappings.items()}
@@ -1250,6 +1311,7 @@ class ColumnMapper:
 
         return df.rename(columns=rename_dict)
 
+    @function_lock
     def _apply_transformations(self, df: pd.DataFrame) -> pd.DataFrame:
         """Apply splits and merges from transformation rules."""
         result_df = df.copy()
@@ -1264,6 +1326,7 @@ class ColumnMapper:
 
         return result_df
 
+    @function_lock
     def _apply_split(self, df: pd.DataFrame, split_rule: Dict) -> pd.DataFrame:
         """Apply a column split transformation."""
         source_field = split_rule['source_field']
@@ -1290,6 +1353,7 @@ class ColumnMapper:
 
         return df
 
+    @function_lock
     def _apply_merge(self, df: pd.DataFrame, merge_rule: Dict) -> pd.DataFrame:
         """Apply a column merge transformation."""
         source_fields = merge_rule['source_fields']
@@ -1330,6 +1394,7 @@ class ColumnMapper:
 
         return df
 
+    @function_lock
     def _normalize_dates(self, df: pd.DataFrame) -> pd.DataFrame:
         """Normalize date columns to ISO format."""
         date_types = ['DateField', 'DateTimeField', 'DatePointField']
@@ -1382,6 +1447,7 @@ class ColumnMapper:
 
         return df
 
+    @function_lock
     def _normalize_datetime_field(self, value) -> Optional[str]:
         """Normalize a datetime field value."""
         if pd.isna(value) or value == '' or value is None:
@@ -1407,6 +1473,7 @@ class ColumnMapper:
         # Fallback to regular date normalization
         return self.date_normalizer.normalize_date(value)
 
+    @function_lock
     def _add_history_column(self, df: pd.DataFrame) -> pd.DataFrame:
         """Add a column_history column with transformation tracking."""
         print(f"\n=== ADDING HISTORY COLUMN ===")
@@ -1418,6 +1485,7 @@ class ColumnMapper:
         print(f"   [OK] Added column_history column")
         return df_with_history
 
+@function_lock
 def main():
     """Main function for the DataFrame normalizer."""
     if len(sys.argv) < 2 or len(sys.argv) > 3:

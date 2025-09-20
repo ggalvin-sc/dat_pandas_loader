@@ -8,8 +8,7 @@
         "FirstBates",
         "StartBates",
         "bates number begin",
-        "prodbeg",
-        "prodend"
+        "prodbeg"
       ],
       "type": "StrField",
       "category": "bates_numbering"
@@ -20,7 +19,8 @@
         "BatesLast",
         "FinalBates",
         "LastBates",
-        "bates number end"
+        "bates number end",
+        "prodend"
       ],
       "type": "TextField",
       "category": "bates_numbering"

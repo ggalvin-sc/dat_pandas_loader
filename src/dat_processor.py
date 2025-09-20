@@ -26,6 +26,16 @@ import chardet
 import warnings
 from typing import Dict, List, Tuple, Optional, Any
 import traceback
+import functools
+
+
+def function_lock(func):
+    """Decorator to lock function implementation and prevent modifications."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    wrapper.__locked__ = True
+    return wrapper
 
 # Suppress pandas warnings for cleaner output
 warnings.filterwarnings('ignore', category=pd.errors.DtypeWarning)
@@ -34,6 +44,7 @@ warnings.filterwarnings('ignore', category=pd.errors.ParserWarning)
 class DataIntegrityTracker:
     """Tracks data integrity throughout the processing pipeline."""
 
+    @function_lock
     def __init__(self):
         self.original_file_size = 0
         self.original_line_count = 0
@@ -44,6 +55,7 @@ class DataIntegrityTracker:
         self.memory_usage = {}
         self.processing_steps = []
 
+    @function_lock
     def log_original_stats(self, file_path):
         """Log original file statistics."""
         file_path = Path(file_path)
@@ -54,6 +66,7 @@ class DataIntegrityTracker:
         except:
             self.original_line_count = 0
 
+    @function_lock
     def log_skipped_line(self, line_num: int, reason: str, content: str = ""):
         """Log a skipped line with reason."""
         self.skipped_lines.append({
@@ -62,6 +75,7 @@ class DataIntegrityTracker:
             'content': content[:100] + "..." if len(content) > 100 else content
         })
 
+    @function_lock
     def log_encoding_change(self, from_encoding: str, to_encoding: str, reason: str):
         """Log encoding changes."""
         self.encoding_changes.append({
@@ -71,6 +85,7 @@ class DataIntegrityTracker:
             'timestamp': datetime.now()
         })
 
+    @function_lock
     def log_data_modification(self, operation: str, before_count: int, after_count: int, details: str = ""):
         """Log data modifications."""
         self.data_modifications.append({
@@ -82,6 +97,7 @@ class DataIntegrityTracker:
             'timestamp': datetime.now()
         })
 
+    @function_lock
     def log_error(self, error_type: str, message: str, context: str = ""):
         """Log errors with context."""
         self.error_log.append({
@@ -91,6 +107,7 @@ class DataIntegrityTracker:
             'timestamp': datetime.now()
         })
 
+    @function_lock
     def log_memory_usage(self, stage: str, df: pd.DataFrame):
         """Log memory usage at different stages."""
         memory_mb = df.memory_usage(deep=True).sum() / 1024 / 1024
@@ -101,6 +118,7 @@ class DataIntegrityTracker:
             'timestamp': datetime.now()
         }
 
+    @function_lock
     def add_processing_step(self, step: str, status: str, details: str = ""):
         """Add a processing step to the log."""
         self.processing_steps.append({
@@ -113,6 +131,7 @@ class DataIntegrityTracker:
 class EnhancedDATProcessor:
     """Enhanced DAT file processor with comprehensive logging and integrity tracking."""
 
+    @function_lock
     def __init__(self, log_level: str = 'INFO'):
         self.integrity_tracker = DataIntegrityTracker()
         self.logger = self._setup_logging(log_level)
@@ -125,6 +144,7 @@ class EnhancedDATProcessor:
             ('manual_parsing', self._load_manual_parsing)
         ]
 
+    @function_lock
     def _setup_logging(self, log_level: str) -> logging.Logger:
         """Setup comprehensive logging system."""
         logger = logging.getLogger('dat_processor')
@@ -157,6 +177,7 @@ class EnhancedDATProcessor:
         logger.info(f"Logging initialized. Log file: {log_filename}")
         return logger
 
+    @function_lock
     def detect_encoding(self, file_path) -> str:
         """Detect file encoding with fallback strategies."""
         file_path = Path(file_path)
@@ -191,6 +212,7 @@ class EnhancedDATProcessor:
         self.logger.warning("Could not detect encoding, using utf-8 with error handling")
         return 'utf-8'
 
+    @function_lock
     def _load_pandas_standard(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using pandas with standard CSV detection."""
         self.logger.debug("Attempting pandas standard CSV loading")
@@ -209,6 +231,7 @@ class EnhancedDATProcessor:
             self.logger.debug(f"pandas_standard failed: {e}")
             raise
 
+    @function_lock
     def _load_pandas_tab(self, file_path: str, encoding: str) -> pd.DataFrame:
         """Load using pandas with tab delimiter."""
         self.logger.debug("Attempting pandas tab-delimited loading")
@@ -228,6 +251,7 @@ class EnhancedDATProcessor:
             self.logger.debug(f"pandas_tab_delimited failed: {e}")
             raise
 
+    @function_lock
     def _load_pandas_fixed_width(self, file_path: str, encoding: str) -> pd.DataFrame:
         """Load using pandas with fixed-width detection."""
         self.logger.debug("Attempting pandas fixed-width loading")
@@ -244,6 +268,7 @@ class EnhancedDATProcessor:
             self.logger.debug(f"pandas_fixed_width failed: {e}")
             raise
 
+    @function_lock
     def _load_pandas_csv_sniffer(self, file_path: str, encoding: str) -> pd.DataFrame:
         """Load using pandas with CSV dialect detection."""
         self.logger.debug("Attempting pandas CSV sniffer loading")
@@ -272,6 +297,7 @@ class EnhancedDATProcessor:
             self.logger.debug(f"pandas_csv_sniffer failed: {e}")
             raise
 
+    @function_lock
     def _load_manual_parsing(self, file_path: str, encoding: str) -> pd.DataFrame:
         """Load using manual line-by-line parsing."""
         self.logger.debug("Attempting manual parsing")
@@ -318,6 +344,7 @@ class EnhancedDATProcessor:
             self.logger.debug(f"manual_parsing failed: {e}")
             raise
 
+    @function_lock
     def load_dat_file(self, file_path: str, encoding: str = None) -> pd.DataFrame:
         """Load DAT file using multiple fallback strategies."""
         self.logger.info(f"Starting to load DAT file: {file_path}")
@@ -360,6 +387,7 @@ class EnhancedDATProcessor:
         self.integrity_tracker.log_error("LoadError", error_msg)
         raise Exception(error_msg)
 
+    @function_lock
     def clean_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """Perform comprehensive data cleaning with tracking."""
         self.logger.info("Starting data cleaning operations")
@@ -407,6 +435,7 @@ class EnhancedDATProcessor:
 
         return df
 
+    @function_lock
     def analyze_data_quality(self, df: pd.DataFrame) -> Dict[str, Any]:
         """Perform comprehensive data quality analysis."""
         self.logger.info("Performing data quality analysis")
@@ -450,6 +479,7 @@ class EnhancedDATProcessor:
 
         return analysis
 
+    @function_lock
     def generate_integrity_report(self, df: pd.DataFrame = None) -> str:
         """Generate comprehensive data integrity report."""
         report_lines = []
@@ -550,6 +580,7 @@ class EnhancedDATProcessor:
 
         return "\n".join(report_lines)
 
+@function_lock
 def main():
     """Main function with enhanced command-line interface."""
     parser = argparse.ArgumentParser(

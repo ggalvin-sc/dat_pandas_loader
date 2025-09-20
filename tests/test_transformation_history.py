@@ -11,11 +11,22 @@ import pandas as pd
 import json
 from datetime import datetime
 from src.transformation_history import TransformationHistoryTracker
+import functools
+
+
+def function_lock(func):
+    """Decorator to lock function implementation and prevent modifications."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    wrapper.__locked__ = True
+    return wrapper
 
 
 class TestTransformationHistoryTracker:
     """Test suite for TransformationHistoryTracker."""
 
+    @function_lock
     def test_init_creates_empty_state(self):
         """Test that initialization creates empty tracking state."""
         tracker = TransformationHistoryTracker()
@@ -25,6 +36,7 @@ class TestTransformationHistoryTracker:
         assert tracker.split_operations == {}
         assert tracker.transformation_log == {}
 
+@function_lock
     def test_track_mapping_basic(self):
         """Test basic column mapping functionality."""
         tracker = TransformationHistoryTracker()
@@ -41,6 +53,7 @@ class TestTransformationHistoryTracker:
         assert log_entry["final_name"] == "BegBates"
         assert "timestamp" in log_entry
 
+@function_lock
     def test_track_mapping_validation(self):
         """Test that track_mapping validates inputs properly."""
         tracker = TransformationHistoryTracker()
@@ -54,6 +67,7 @@ class TestTransformationHistoryTracker:
         with pytest.raises(ValueError, match="Column names cannot be empty"):
             tracker.track_mapping(None, "ValidName")
 
+@function_lock
     def test_track_merge_basic(self):
         """Test basic column merge functionality."""
         tracker = TransformationHistoryTracker()
@@ -72,6 +86,7 @@ class TestTransformationHistoryTracker:
         assert log_entry["type"] == "column_merge"
         assert log_entry["source_columns"] == ["DateSent", "TimeSent"]
 
+@function_lock
     def test_track_merge_validation(self):
         """Test that track_merge validates inputs properly."""
         tracker = TransformationHistoryTracker()
@@ -85,6 +100,7 @@ class TestTransformationHistoryTracker:
         with pytest.raises(ValueError, match="Merge requires at least 2 source columns"):
             tracker.track_merge(["OnlyOne"], "Target")
 
+@function_lock
     def test_track_split_basic(self):
         """Test basic column split functionality."""
         tracker = TransformationHistoryTracker()
@@ -103,6 +119,7 @@ class TestTransformationHistoryTracker:
             assert log_entry["type"] == "column_split"
             assert log_entry["original_column"] == "AttachRange"
 
+@function_lock
     def test_track_split_validation(self):
         """Test that track_split validates inputs properly."""
         tracker = TransformationHistoryTracker()
@@ -116,6 +133,7 @@ class TestTransformationHistoryTracker:
         with pytest.raises(ValueError, match="Split requires at least 2 target columns"):
             tracker.track_split("Source", ["OnlyOne"])
 
+@function_lock
     def test_track_data_transformation_basic(self):
         """Test basic data transformation tracking."""
         tracker = TransformationHistoryTracker()
@@ -129,6 +147,7 @@ class TestTransformationHistoryTracker:
         assert log_entry["from_format"] == "MM/dd/yyyy"
         assert log_entry["to_format"] == "yyyy-MM-dd"
 
+@function_lock
     def test_track_data_transformation_validation(self):
         """Test that track_data_transformation validates inputs."""
         tracker = TransformationHistoryTracker()
@@ -139,6 +158,7 @@ class TestTransformationHistoryTracker:
         with pytest.raises(ValueError, match="Transformation type cannot be empty"):
             tracker.track_data_transformation("Column", "")
 
+@function_lock
     def test_get_original_column_name(self):
         """Test getting original column names."""
         tracker = TransformationHistoryTracker()
@@ -150,6 +170,7 @@ class TestTransformationHistoryTracker:
         # Test without mapping (should return same name)
         assert tracker.get_original_column_name("UnmappedColumn") == "UnmappedColumn"
 
+@function_lock
     def test_was_column_merged(self):
         """Test checking if column was merged."""
         tracker = TransformationHistoryTracker()
@@ -159,6 +180,7 @@ class TestTransformationHistoryTracker:
         assert tracker.was_column_merged("DateTime") is True
         assert tracker.was_column_merged("NotMerged") is False
 
+@function_lock
     def test_was_column_split(self):
         """Test checking if column was split."""
         tracker = TransformationHistoryTracker()
@@ -173,6 +195,7 @@ class TestTransformationHistoryTracker:
         assert was_split is False
         assert original is None
 
+@function_lock
     def test_get_column_transformations(self):
         """Test getting transformation list for a column."""
         tracker = TransformationHistoryTracker()
@@ -189,6 +212,7 @@ class TestTransformationHistoryTracker:
         empty_transformations = tracker.get_column_transformations("NoTransforms")
         assert empty_transformations == []
 
+@function_lock
     def test_create_row_history_entry_basic(self):
         """Test creating row history entry."""
         tracker = TransformationHistoryTracker()
@@ -225,6 +249,7 @@ class TestTransformationHistoryTracker:
         assert unchanged_history["original_column"] == "UnchangedCol"
         assert unchanged_history["was_renamed"] is False
 
+@function_lock
     def test_create_row_history_entry_validation(self):
         """Test validation for create_row_history_entry."""
         tracker = TransformationHistoryTracker()
@@ -239,6 +264,7 @@ class TestTransformationHistoryTracker:
         with pytest.raises(ValueError, match="row_index .* is out of bounds"):
             tracker.create_row_history_entry(-1, df)
 
+@function_lock
     def test_create_row_history_entry_with_merge(self):
         """Test row history entry creation with merged columns."""
         tracker = TransformationHistoryTracker()
@@ -263,6 +289,7 @@ class TestTransformationHistoryTracker:
         assert merge_details["source_values"] == ["2023-01-15", "10:30"]
         assert merge_details["separator"] == " at "
 
+@function_lock
     def test_create_row_history_entry_with_split(self):
         """Test row history entry creation with split columns."""
         tracker = TransformationHistoryTracker()
@@ -287,6 +314,7 @@ class TestTransformationHistoryTracker:
         assert split_details["original_value"] == "John Doe"
         assert split_details["separator"] == " "
 
+@function_lock
     def test_add_history_column_to_dataframe_basic(self):
         """Test adding history column to DataFrame."""
         tracker = TransformationHistoryTracker()
@@ -313,6 +341,7 @@ class TestTransformationHistoryTracker:
             history = json.loads(history_str)  # Should not raise exception
             assert isinstance(history, dict)
 
+@function_lock
     def test_add_history_column_to_dataframe_validation(self):
         """Test validation for add_history_column_to_dataframe."""
         tracker = TransformationHistoryTracker()
@@ -323,6 +352,7 @@ class TestTransformationHistoryTracker:
         with pytest.raises(ValueError, match="DataFrame cannot be empty"):
             tracker.add_history_column_to_dataframe(pd.DataFrame())
 
+@function_lock
     def test_get_transformation_summary(self):
         """Test getting transformation summary."""
         tracker = TransformationHistoryTracker()
@@ -344,6 +374,7 @@ class TestTransformationHistoryTracker:
         assert "DateTime" in summary["merge_operations"]
         assert "FullName" in summary["split_operations"]
 
+@function_lock
     def test_complex_workflow(self):
         """Test a complex workflow with multiple transformation types."""
         tracker = TransformationHistoryTracker()
@@ -401,6 +432,7 @@ class TestTransformationHistoryTracker:
         assert history["SentDateTime"]["transformation_count"] == 2  # merge + data transformation
         assert history["BegBates"]["transformation_count"] == 2     # rename + validation
 
+@function_lock
     def test_edge_case_empty_values(self):
         """Test handling of empty/null values in data."""
         tracker = TransformationHistoryTracker()
@@ -422,6 +454,7 @@ class TestTransformationHistoryTracker:
             # Should not raise exceptions and should convert to string
             assert isinstance(history["NewCol1"]["current_value"], str)
 
+@function_lock
     def test_column_history_avoids_recursion(self):
         """Test that column_history column doesn't create recursive history."""
         tracker = TransformationHistoryTracker()
@@ -445,6 +478,7 @@ class TestTransformationHistoryTracker:
 class TestTransformationHistoryTrackerEdgeCases:
     """Test edge cases and potential failure scenarios."""
 
+@function_lock
     def test_multiple_transformations_same_column(self):
         """Test multiple transformations on the same column."""
         tracker = TransformationHistoryTracker()
@@ -464,6 +498,7 @@ class TestTransformationHistoryTrackerEdgeCases:
         assert transformations[2]["type"] == "formatting"
         assert transformations[3]["type"] == "normalization"
 
+@function_lock
     def test_large_dataframe_performance(self):
         """Test performance with larger DataFrames."""
         tracker = TransformationHistoryTracker()

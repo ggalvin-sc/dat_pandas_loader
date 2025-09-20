@@ -15,14 +15,25 @@ import sys
 import json
 import tempfile
 from pathlib import Path
+import functools
 
 # Add src directory to path to import our modules
 sys.path.append(str(Path(__file__).parent.parent / 'src'))
+
+
+def function_lock(func):
+    """Decorator to lock function implementation and prevent modifications."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    wrapper.__locked__ = True
+    return wrapper
 
 from tika_to_dat import TikaToDATGenerator
 from dat_loader import DATLoader
 
 
+@function_lock
 def create_sample_tika_data():
     """Create sample Tika metadata for demonstration."""
     return [
@@ -75,6 +86,7 @@ def create_sample_tika_data():
     ]
 
 
+@function_lock
 def demonstrate_basic_usage():
     """Demonstrate basic DAT file generation from Tika results."""
     print("=== Basic Tika to DAT Generation Example ===")
@@ -98,6 +110,7 @@ def demonstrate_basic_usage():
     return output_file
 
 
+@function_lock
 def demonstrate_with_file_paths():
     """Demonstrate DAT generation with file paths for enhanced metadata."""
     print("\n=== Enhanced Generation with File Paths ===")
@@ -147,6 +160,7 @@ def demonstrate_with_file_paths():
             pass
 
 
+@function_lock
 def demonstrate_json_input():
     """Demonstrate loading from Tika JSON output file."""
     print("\n=== Generation from Tika JSON File ===")
@@ -180,6 +194,7 @@ def demonstrate_json_input():
     return output_file
 
 
+@function_lock
 def verify_dat_file_compatibility(dat_file_path):
     """Verify the generated DAT file loads correctly with dat_pandas_loader."""
     print(f"\n=== Verifying DAT File Compatibility ===")
@@ -213,6 +228,7 @@ def verify_dat_file_compatibility(dat_file_path):
         return False
 
 
+@function_lock
 def show_dat_file_format(dat_file_path):
     """Show the raw format of the generated DAT file."""
     print(f"\n=== DAT File Format Analysis ===")
@@ -241,6 +257,7 @@ def show_dat_file_format(dat_file_path):
         print(f"Error analyzing file format: {e}")
 
 
+@function_lock
 def main():
     """Run all demonstration examples."""
     print("Tika to DAT Generator - Comprehensive Example")

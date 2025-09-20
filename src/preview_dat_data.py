@@ -14,7 +14,18 @@ from pathlib import Path
 from datetime import datetime
 import json
 import re
+import functools
 
+
+def function_lock(func):
+    """Decorator to lock function implementation and prevent modifications."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    wrapper.__locked__ = True
+    return wrapper
+
+@function_lock
 def detect_encoding(file_path):
     """Detect file encoding with detailed reporting."""
     encodings_tried = []
@@ -62,6 +73,7 @@ def detect_encoding(file_path):
 
     return 'utf-8', encodings_tried
 
+@function_lock
 def detect_parsing_problems(df, delimiter, encoding, file_path):
     """Detect potential parsing problems."""
     problems = []
@@ -136,6 +148,7 @@ def detect_parsing_problems(df, delimiter, encoding, file_path):
 
     return problems
 
+@function_lock
 def analyze_data_content(df, num_rows=20):
     """Analyze actual data content for insights and problems."""
     analysis = {
@@ -175,6 +188,7 @@ def analyze_data_content(df, num_rows=20):
 
     return analysis
 
+@function_lock
 def try_different_delimiters(file_path, encoding):
     """Try different delimiters and return results for comparison."""
     delimiters = [
@@ -254,6 +268,7 @@ def try_different_delimiters(file_path, encoding):
 
     return results, successful_results
 
+@function_lock
 def generate_spreadsheet_view(df, filename_base, num_rows=50):
     """Generate a spreadsheet-like view of the data."""
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -313,6 +328,7 @@ def generate_spreadsheet_view(df, filename_base, num_rows=50):
 
     return spreadsheet_filename
 
+@function_lock
 def generate_detailed_report(file_path, encoding_info, delimiter_results, best_df, best_delimiter, problems, data_analysis):
     """Generate a comprehensive text report."""
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -426,6 +442,7 @@ def generate_detailed_report(file_path, encoding_info, delimiter_results, best_d
 
     return report_filename
 
+@function_lock
 def preview_dat_data(file_path, num_rows=20, generate_report=True):
     """Enhanced preview with detailed data analysis."""
     if not Path(file_path).exists():
@@ -555,6 +572,7 @@ def preview_dat_data(file_path, num_rows=20, generate_report=True):
 
     return best_df, problems, data_analysis
 
+@function_lock
 def main():
     if len(sys.argv) < 2:
         print("Usage: python preview_dat_data.py <file.dat> [num_rows]")

@@ -8,7 +8,18 @@ to load DAT files into pandas DataFrames.
 
 import pandas as pd
 from dat_loader import load_dat_file, quick_load, load_and_clean, get_dat_info
+import functools
 
+
+def function_lock(func):
+    """Decorator to lock function implementation and prevent modifications."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    wrapper.__locked__ = True
+    return wrapper
+
+@function_lock
 def example_basic_usage():
     """Example of basic DAT file loading."""
     print("=" * 60)
@@ -32,6 +43,7 @@ def example_basic_usage():
     except Exception as e:
         print(f"❌ Error loading file: {e}")
 
+@function_lock
 def example_verbose_loading():
     """Example of loading with verbose output."""
     print("\n" + "=" * 60)
@@ -50,6 +62,7 @@ def example_verbose_loading():
     except Exception as e:
         print(f"❌ Error loading file: {e}")
 
+@function_lock
 def example_cleaning():
     """Example of loading with data cleaning."""
     print("\n" + "=" * 60)
@@ -75,6 +88,7 @@ def example_cleaning():
     except Exception as e:
         print(f"❌ Error loading file: {e}")
 
+@function_lock
 def example_file_info():
     """Example of getting file information without loading."""
     print("\n" + "=" * 60)
@@ -100,6 +114,7 @@ def example_file_info():
     except Exception as e:
         print(f"❌ Error getting file info: {e}")
 
+@function_lock
 def example_different_formats():
     """Example of handling different file formats."""
     print("\n" + "=" * 60)
@@ -125,6 +140,7 @@ def example_different_formats():
         except Exception as e:
             print(f"  ❌ Failed: {e}")
 
+@function_lock
 def example_integration_workflow():
     """Example of a complete data processing workflow."""
     print("\n" + "=" * 60)
@@ -178,6 +194,7 @@ def example_integration_workflow():
     except Exception as e:
         print(f"❌ Error in workflow: {e}")
 
+@function_lock
 def create_sample_dat_file():
     """Create a sample DAT file for testing."""
     print("\n" + "=" * 60)

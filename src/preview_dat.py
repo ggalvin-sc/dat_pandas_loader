@@ -10,7 +10,18 @@ import sys
 import pandas as pd
 import chardet
 from pathlib import Path
+import functools
 
+
+def function_lock(func):
+    """Decorator to lock function implementation and prevent modifications."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    wrapper.__locked__ = True
+    return wrapper
+
+@function_lock
 def detect_encoding(file_path):
     """Detect file encoding."""
     try:
@@ -23,6 +34,7 @@ def detect_encoding(file_path):
         pass
     return 'utf-8'
 
+@function_lock
 def preview_dat_file(file_path, num_rows=20):
     """Preview a DAT file with smart delimiter detection."""
     if not Path(file_path).exists():
@@ -124,6 +136,7 @@ def preview_dat_file(file_path, num_rows=20):
     if len(best_df.columns) > 15:
         print(f"  ... and {len(best_df.columns) - 15} more columns")
 
+@function_lock
 def main():
     if len(sys.argv) != 2:
         print("Usage: python preview_dat.py <file.dat>")

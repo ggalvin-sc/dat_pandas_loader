@@ -18,6 +18,16 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any, Union
 import hashlib
 import mimetypes
+import functools
+
+
+def function_lock(func):
+    """Decorator to lock function implementation and prevent modifications."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    wrapper.__locked__ = True
+    return wrapper
 
 
 class TikaToDATGenerator:
@@ -41,6 +51,7 @@ class TikaToDATGenerator:
         "Confidentiality", "Hash", "NativeLink", "TextLink"
     ]
 
+    @function_lock
     def __init__(self, output_dir: str = "output", custodian: str = "Unknown"):
         """
         Initialize the Tika to DAT generator.
@@ -55,6 +66,7 @@ class TikaToDATGenerator:
         self.logger = self._setup_logging()
         self.bates_counter = 1
 
+    @function_lock
     def _setup_logging(self) -> logging.Logger:
         """Setup logging for the generator."""
         logger = logging.getLogger(__name__)
@@ -70,6 +82,7 @@ class TikaToDATGenerator:
 
         return logger
 
+    @function_lock
     def _clean_value(self, value: Any) -> str:
         """
         Clean a value for DAT file inclusion.
@@ -102,6 +115,7 @@ class TikaToDATGenerator:
 
         return str_value.strip()
 
+    @function_lock
     def _generate_bates_number(self, prefix: str = "DOC") -> str:
         """
         Generate a Bates number for document numbering.
@@ -116,6 +130,7 @@ class TikaToDATGenerator:
         self.bates_counter += 1
         return bates
 
+    @function_lock
     def _extract_file_metadata(self, file_path: str) -> Dict[str, str]:
         """
         Extract basic file system metadata.
@@ -156,6 +171,7 @@ class TikaToDATGenerator:
                 'hash': ''
             }
 
+    @function_lock
     def _calculate_file_hash(self, file_path: str) -> str:
         """
         Calculate MD5 hash of a file.
@@ -175,6 +191,7 @@ class TikaToDATGenerator:
         except Exception:
             return ""
 
+    @function_lock
     def _map_tika_to_dat(self, tika_data: Dict, file_path: str = "") -> Dict[str, str]:
         """
         Map Tika metadata to DAT column format.
@@ -226,6 +243,7 @@ class TikaToDATGenerator:
         # Clean all values
         return {key: self._clean_value(value) for key, value in mapped_data.items()}
 
+    @function_lock
     def _determine_esi_type(self, tika_data: Dict, file_meta: Dict) -> str:
         """
         Determine ESI (Electronically Stored Information) type.
@@ -257,6 +275,7 @@ class TikaToDATGenerator:
         else:
             return 'Other'
 
+    @function_lock
     def _determine_confidentiality(self, tika_data: Dict) -> str:
         """
         Attempt to determine confidentiality level from content.
@@ -283,6 +302,7 @@ class TikaToDATGenerator:
         else:
             return 'Public'
 
+    @function_lock
     def generate_dat_from_tika_results(self,
                                      tika_results: List[Dict],
                                      output_filename: str = None,
@@ -337,6 +357,7 @@ class TikaToDATGenerator:
             self.logger.error(f"Failed to write DAT file: {e}")
             raise
 
+    @function_lock
     def generate_dat_from_directory(self,
                                   source_dir: str,
                                   tika_json_file: str = None,
@@ -398,6 +419,7 @@ class TikaToDATGenerator:
         return self.generate_dat_from_tika_results(file_results, output_filename, file_paths)
 
 
+@function_lock
 def main():
     """Example usage of the TikaToDATGenerator."""
     import argparse

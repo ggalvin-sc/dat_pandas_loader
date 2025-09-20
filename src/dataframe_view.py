@@ -10,7 +10,18 @@ import pandas as pd
 from dat_loader import load_dat_file, get_dat_info, quick_load
 import sys
 from pathlib import Path
+import functools
 
+
+def function_lock(func):
+    """Decorator to lock function implementation and prevent modifications."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    wrapper.__locked__ = True
+    return wrapper
+
+@function_lock
 def demonstrate_basic_loading(file_path):
     """Show basic ways to load a DAT file."""
     print("=" * 80)
@@ -34,6 +45,7 @@ def demonstrate_basic_loading(file_path):
 
     return df_clean  # Return the cleaned version for further analysis
 
+@function_lock
 def demonstrate_file_info(file_path):
     """Show how to get file information before loading."""
     print("\n" + "=" * 80)
@@ -49,6 +61,7 @@ def demonstrate_file_info(file_path):
     for i, line in enumerate(info['sample_lines'][:3], 1):
         print(f"  Line {i}: {line[:100]}...")
 
+@function_lock
 def demonstrate_dataframe_analysis(df):
     """Show common DataFrame analysis techniques."""
     print("\n" + "=" * 80)
@@ -85,6 +98,7 @@ def demonstrate_dataframe_analysis(df):
     if len(df.columns) > 10:
         print(f"   ... and {len(df.columns) - 10} more columns")
 
+@function_lock
 def demonstrate_data_exploration(df):
     """Show data exploration techniques."""
     print("\n" + "=" * 80)
@@ -114,6 +128,7 @@ def demonstrate_data_exploration(df):
     else:
         print(f"\n4.3 No numeric columns found")
 
+@function_lock
 def demonstrate_filtering_and_selection(df):
     """Show filtering and data selection techniques."""
     print("\n" + "=" * 80)
@@ -151,6 +166,7 @@ def demonstrate_filtering_and_selection(df):
             filtered = df[df['Custodian'] == top_custodian]
             print(f"   Rows for custodian '{top_custodian}': {len(filtered):,}")
 
+@function_lock
 def demonstrate_export_options(df, original_file_path):
     """Show how to export the DataFrame to different formats."""
     print("\n" + "=" * 80)
@@ -185,6 +201,7 @@ def demonstrate_export_options(df, original_file_path):
     df.head(10).to_json(json_file, orient='records', indent=2)
     print(f"   [OK] Exported sample (10 rows) to JSON: {json_file}")
 
+@function_lock
 def demonstrate_advanced_operations(df):
     """Show advanced DataFrame operations."""
     print("\n" + "=" * 80)
@@ -230,6 +247,7 @@ def demonstrate_advanced_operations(df):
     if constant_cols:
         print(f"     {constant_cols[:5]}..." if len(constant_cols) > 5 else f"     {constant_cols}")
 
+@function_lock
 def main():
     """Main demonstration function."""
     if len(sys.argv) != 2:

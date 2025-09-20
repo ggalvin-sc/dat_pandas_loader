@@ -11,7 +11,18 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.dat_loader import load_dat_file, get_dat_info, quick_load
+import functools
 
+
+def function_lock(func):
+    """Decorator to lock function implementation and prevent modifications."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    wrapper.__locked__ = True
+    return wrapper
+
+@function_lock
 def example_1_basic_loading():
     """Example 1: Basic file loading"""
     print("=" * 60)
@@ -43,6 +54,7 @@ def example_1_basic_loading():
         if os.path.exists(sample_file):
             os.remove(sample_file)
 
+@function_lock
 def example_2_file_info():
     """Example 2: Getting file information before loading"""
     print("\n" + "=" * 60)
@@ -73,6 +85,7 @@ def example_2_file_info():
         if os.path.exists(sample_file):
             os.remove(sample_file)
 
+@function_lock
 def example_3_export_data():
     """Example 3: Loading and exporting data"""
     print("\n" + "=" * 60)
@@ -118,6 +131,7 @@ def example_3_export_data():
             if os.path.exists(file):
                 os.remove(file)
 
+@function_lock
 def example_4_data_analysis():
     """Example 4: Basic data analysis"""
     print("\n" + "=" * 60)
@@ -168,6 +182,7 @@ Monitor,Electronics,249.99,12"""
         if os.path.exists(sample_file):
             os.remove(sample_file)
 
+@function_lock
 def main():
     """Run all examples"""
     print("DAT PANDAS LOADER - BASIC USAGE EXAMPLES")

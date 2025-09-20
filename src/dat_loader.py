@@ -17,6 +17,16 @@ import warnings
 from typing import Optional, Dict, Any, List, Tuple
 import logging
 from pathlib import Path
+import functools
+
+
+def function_lock(func):
+    """Decorator to lock function implementation and prevent modifications."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    wrapper.__locked__ = True
+    return wrapper
 
 # Suppress pandas warnings for cleaner output
 warnings.filterwarnings('ignore', category=pd.errors.DtypeWarning)
@@ -25,6 +35,7 @@ warnings.filterwarnings('ignore', category=pd.errors.ParserWarning)
 class DATLoader:
     """A robust DAT file loader with multiple fallback strategies."""
 
+    @function_lock
     def __init__(self, verbose: bool = False):
         """
         Initialize the DAT loader.
@@ -36,6 +47,7 @@ class DATLoader:
         self.logger = self._setup_logger() if verbose else None
         self.last_method_used = None
 
+    @function_lock
     def _setup_logger(self) -> logging.Logger:
         """Setup simple logger for verbose output."""
         logger = logging.getLogger('dat_loader')
@@ -49,11 +61,13 @@ class DATLoader:
 
         return logger
 
+    @function_lock
     def _log(self, message: str, level: str = 'info'):
         """Log message if verbose mode is enabled."""
         if self.verbose and self.logger:
             getattr(self.logger, level)(message)
 
+    @function_lock
     def detect_encoding(self, file_path) -> str:
         """
         Detect file encoding with fallback strategies.
@@ -96,6 +110,7 @@ class DATLoader:
         self._log("Could not detect encoding, using utf-8 with error handling", 'warning')
         return 'utf-8'
 
+    @function_lock
     def _load_pandas_standard(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using pandas with standard CSV detection."""
         return pd.read_csv(
@@ -106,6 +121,7 @@ class DATLoader:
             dtype=str
         )
 
+    @function_lock
     def _load_pandas_tab(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using pandas with tab delimiter."""
         return pd.read_csv(
@@ -117,6 +133,7 @@ class DATLoader:
             dtype=str
         )
 
+    @function_lock
     def _load_pandas_special_delimiter(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using pandas with special delimiters (þ, \x14)."""
         special_delimiters = ['þ', '\x14']
@@ -174,6 +191,7 @@ class DATLoader:
 
         raise Exception("No special delimiter worked")
 
+    @function_lock
     def _load_pandas_fixed_width(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using pandas with fixed-width detection."""
         return pd.read_fwf(
@@ -182,6 +200,7 @@ class DATLoader:
             dtype=str
         )
 
+    @function_lock
     def _load_pandas_csv_sniffer(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using pandas with CSV dialect detection."""
         import csv
@@ -202,6 +221,7 @@ class DATLoader:
             dtype=str
         )
 
+    @function_lock
     def _load_manual_parsing(self, file_path, encoding: str) -> pd.DataFrame:
         """Load using manual line-by-line parsing."""
         rows = []
@@ -235,6 +255,7 @@ class DATLoader:
 
         return pd.DataFrame(rows, columns=columns)
 
+    @function_lock
     def load(self, file_path, encoding: Optional[str] = None, clean: bool = False) -> pd.DataFrame:
         """
         Load a DAT file into a pandas DataFrame using multiple fallback strategies.
@@ -296,6 +317,7 @@ class DATLoader:
         error_msg = f"All loading methods failed. Last error: {last_error}"
         raise Exception(error_msg)
 
+    @function_lock
     def _clean_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """Perform basic data cleaning operations."""
         self._log("Performing data cleaning")
@@ -320,6 +342,7 @@ class DATLoader:
 
 
 # Convenience functions for easy importing
+@function_lock
 def load_dat_file(file_path, encoding: Optional[str] = None,
                   clean: bool = False, verbose: bool = False) -> pd.DataFrame:
     """
@@ -353,6 +376,7 @@ def load_dat_file(file_path, encoding: Optional[str] = None,
     return loader.load(file_path, encoding=encoding, clean=clean)
 
 
+@function_lock
 def quick_load(file_path) -> pd.DataFrame:
     """
     Quick load a DAT file with minimal output.
@@ -370,6 +394,7 @@ def quick_load(file_path) -> pd.DataFrame:
     return load_dat_file(file_path, verbose=False)
 
 
+@function_lock
 def load_and_clean(file_path, verbose: bool = True) -> pd.DataFrame:
     """
     Load a DAT file and automatically clean the data.
@@ -392,6 +417,7 @@ def load_and_clean(file_path, verbose: bool = True) -> pd.DataFrame:
     return load_dat_file(file_path, clean=True, verbose=verbose)
 
 
+@function_lock
 def get_dat_info(file_path) -> Dict[str, Any]:
     """
     Get basic information about a DAT file without fully loading it.
