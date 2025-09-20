@@ -3,7 +3,7 @@
     "description": "Metadata tracking for normalized fields",
     "created": "2025-09-19T12:55:57.674296",
     "version": "1.0.0",
-    "last_updated": "2025-09-19T13:07:45.681867"
+    "last_updated": "2025-09-20T09:14:56.741482"
   },
   "fields": {
     "DateSent": {
@@ -39,12 +39,23 @@
           "transformation_type": "datetime_iso_normalization",
           "timestamp": "2025-09-19T13:07:45.643828",
           "sample_values": []
+        },
+        {
+          "original_name": "DateSent",
+          "transformation_type": "datetime_iso_normalization",
+          "timestamp": "2025-09-20T09:14:56.718738",
+          "sample_values": [
+            "2023-01-15T10:30:00Z",
+            "2023-02-10T09:15:00Z",
+            "2023-03-01T16:20:00Z"
+          ]
         }
       ],
       "source_mappings": [
         "DateSent"
       ],
       "transformation_history": [
+        "datetime_iso_normalization",
         "datetime_iso_normalization",
         "datetime_iso_normalization",
         "datetime_iso_normalization",
@@ -106,12 +117,23 @@
             "09/11/2003 22:06:37",
             "07/14/2010 03:12:26"
           ]
+        },
+        {
+          "original_name": "DateCreated",
+          "transformation_type": "date_iso_normalization",
+          "timestamp": "2025-09-20T09:14:56.732198",
+          "sample_values": [
+            "2025-09-20T09:14:46.650525",
+            "2025-09-20T09:14:46.650525",
+            "2025-09-20T09:14:46.650525"
+          ]
         }
       ],
       "source_mappings": [
         "DateCreated"
       ],
       "transformation_history": [
+        "date_iso_normalization",
         "date_iso_normalization",
         "date_iso_normalization",
         "date_iso_normalization",
@@ -173,12 +195,23 @@
             "09/11/2003 22:06:38",
             "10/12/2007 21:44:58"
           ]
+        },
+        {
+          "original_name": "DateLastModified",
+          "transformation_type": "date_iso_normalization",
+          "timestamp": "2025-09-20T09:14:56.741075",
+          "sample_values": [
+            "2025-09-20T09:14:46.650525",
+            "2025-09-20T09:14:46.650525",
+            "2025-09-20T09:14:46.663513"
+          ]
         }
       ],
       "source_mappings": [
         "DateLastModified"
       ],
       "transformation_history": [
+        "date_iso_normalization",
         "date_iso_normalization",
         "date_iso_normalization",
         "date_iso_normalization",
@@ -190,9 +223,9 @@
   },
   "transformations": [],
   "statistics": {
-    "total_normalizations": 15,
-    "date_fields_processed": 10,
-    "datetime_fields_processed": 5,
+    "total_normalizations": 18,
+    "date_fields_processed": 12,
+    "datetime_fields_processed": 6,
     "text_fields_processed": 0
   }
 }

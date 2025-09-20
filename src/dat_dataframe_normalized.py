@@ -293,6 +293,143 @@ class DateFieldIdentifier:
         """Get list of fields pending review."""
         return list(self.date_fields["pending_review"].keys())
 
+class TransformationHistoryTracker:
+    """Tracks the complete transformation history for creating history columns."""
+
+    def __init__(self):
+        self.transformations = {}  # column_name -> list of transformations
+        self.merges = {}          # new_column -> list of source columns
+        self.splits = {}          # original_column -> list of new columns
+        self.mappings = {}        # final_column -> original_column
+
+    def track_mapping(self, original_column: str, final_column: str,
+                     transformation_type: str = "column_mapping"):
+        """Track a basic column mapping."""
+        self.mappings[final_column] = original_column
+
+        if final_column not in self.transformations:
+            self.transformations[final_column] = []
+
+        self.transformations[final_column].append({
+            "type": transformation_type,
+            "original_name": original_column,
+            "final_name": final_column,
+            "timestamp": datetime.now().isoformat()
+        })
+
+    def track_merge(self, source_columns: List[str], target_column: str, separator: str = " "):
+        """Track a column merge operation."""
+        self.merges[target_column] = {
+            "sources": source_columns,
+            "separator": separator,
+            "timestamp": datetime.now().isoformat()
+        }
+
+        if target_column not in self.transformations:
+            self.transformations[target_column] = []
+
+        self.transformations[target_column].append({
+            "type": "merge",
+            "sources": source_columns,
+            "target": target_column,
+            "separator": separator,
+            "timestamp": datetime.now().isoformat()
+        })
+
+    def track_split(self, original_column: str, new_columns: List[str], separator: str = "-"):
+        """Track a column split operation."""
+        self.splits[original_column] = {
+            "new_columns": new_columns,
+            "separator": separator,
+            "timestamp": datetime.now().isoformat()
+        }
+
+        for new_col in new_columns:
+            if new_col not in self.transformations:
+                self.transformations[new_col] = []
+
+            self.transformations[new_col].append({
+                "type": "split",
+                "original": original_column,
+                "target": new_col,
+                "separator": separator,
+                "timestamp": datetime.now().isoformat()
+            })
+
+    def track_date_normalization(self, column: str, original_format: str, final_format: str):
+        """Track date normalization."""
+        if column not in self.transformations:
+            self.transformations[column] = []
+
+        self.transformations[column].append({
+            "type": "date_normalization",
+            "original_format": original_format,
+            "final_format": final_format,
+            "timestamp": datetime.now().isoformat()
+        })
+
+    def get_column_history(self, column: str, row_data: Dict) -> Dict:
+        """Get the complete transformation history for a column."""
+        original_column = self.mappings.get(column, column)
+
+        history = {
+            "original_column": original_column,
+            "final_column": column,
+            "transformations": self.transformations.get(column, []),
+            "original_value": row_data.get(original_column, row_data.get(column, "")),
+            "final_value": row_data.get(column, ""),
+            "is_mapped": column in self.mappings,
+            "is_merged": column in self.merges,
+            "is_split": any(column in split_info["new_columns"] for split_info in self.splits.values()),
+        }
+
+        # Add merge details if applicable
+        if column in self.merges:
+            merge_info = self.merges[column]
+            history["merge_details"] = {
+                "source_columns": merge_info["sources"],
+                "separator": merge_info["separator"],
+                "source_values": [row_data.get(src, "") for src in merge_info["sources"]]
+            }
+
+        # Add split details if applicable
+        for orig_col, split_info in self.splits.items():
+            if column in split_info["new_columns"]:
+                history["split_details"] = {
+                    "original_column": orig_col,
+                    "separator": split_info["separator"],
+                    "original_value": row_data.get(orig_col, "")
+                }
+                break
+
+        return history
+
+    def create_history_entry(self, row_index: int, df: pd.DataFrame) -> str:
+        """Create a JSON history entry for a specific row."""
+        row_data = df.iloc[row_index].to_dict()
+
+        history_entry = {}
+        for column in df.columns:
+            if column != 'column_history':  # Don't create history for the history column itself
+                col_history = self.get_column_history(column, row_data)
+                history_entry[column] = {
+                    "original_column": col_history["original_column"],
+                    "final_column": col_history["final_column"],
+                    "original_value": str(col_history["original_value"]),
+                    "final_value": str(col_history["final_value"]),
+                    "transformations": len(col_history["transformations"]),
+                    "is_transformed": col_history["is_mapped"] or col_history["is_merged"] or col_history["is_split"]
+                }
+
+                # Add transformation details for significant changes
+                if col_history["is_merged"]:
+                    history_entry[column]["merge_sources"] = col_history["merge_details"]["source_columns"]
+                if col_history["is_split"]:
+                    history_entry[column]["split_from"] = col_history["split_details"]["original_column"]
+
+        return json.dumps(history_entry, ensure_ascii=False)
+
+
 class FieldMetadataTracker:
     """Tracks metadata for normalized fields including data types, transformations, and lineage."""
 
@@ -615,6 +752,7 @@ class ColumnMapper:
         self.column_tracker = ColumnTracker(schema_dir)
         self.metadata_tracker = FieldMetadataTracker(schema_dir)
         self.date_field_identifier = DateFieldIdentifier(schema_dir)
+        self.history_tracker = TransformationHistoryTracker()
 
         # Build reverse lookup for faster matching
         self._build_reverse_lookup()
@@ -766,6 +904,9 @@ class ColumnMapper:
         print(f"Unmapped columns: {len(unmapped)}")
         print(f"Unused mappings: {len(unused)}")
 
+        # Add history column
+        result_df = self._add_history_column(result_df)
+
         # Ask user if they want to save the schema mapping
         if mapped_columns and self.interactive:
             self._ask_to_save_schema(df.columns.tolist(), mapped_columns,
@@ -879,6 +1020,9 @@ class ColumnMapper:
 
         # Normalize dates
         result_df = self._normalize_dates(result_df)
+
+        # Add history column
+        result_df = self._add_history_column(result_df)
 
         print(f"Applied {len(mappings)} known column mappings")
 
@@ -1234,6 +1378,11 @@ class ColumnMapper:
     def _rename_columns(self, df: pd.DataFrame, mappings: Dict) -> pd.DataFrame:
         """Rename DataFrame columns based on mappings."""
         rename_dict = {original: standard for standard, original in mappings.items()}
+
+        # Track column mappings in history tracker
+        for standard_name, original_name in mappings.items():
+            self.history_tracker.track_mapping(original_name, standard_name, "column_mapping")
+
         return df.rename(columns=rename_dict)
 
     def _apply_transformations(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -1261,6 +1410,10 @@ class ColumnMapper:
 
         print(f"   [SPLIT] {source_field} -> {list(target_fields.values())}")
 
+        # Track split transformation
+        new_columns = list(target_fields.values())
+        self.history_tracker.track_split(source_field, new_columns, separator)
+
         # Split the column
         split_data = df[source_field].astype(str).str.split(separator, n=1, expand=True)
 
@@ -1284,6 +1437,11 @@ class ColumnMapper:
             return df
 
         print(f"   [MERGE] {list(existing_sources.values())} -> {target_field}")
+
+        # Track merge transformation
+        source_columns = list(existing_sources.values())
+        separator = " + "  # Default separator for merged fields
+        self.history_tracker.track_merge(source_columns, target_field, separator)
 
         # Merge date and time fields
         if 'date' in existing_sources and 'time' in existing_sources:
@@ -1378,6 +1536,24 @@ class ColumnMapper:
 
         # Fallback to regular date normalization
         return self.date_normalizer.normalize_date(value)
+
+    def _add_history_column(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Add a column_history column with transformation tracking."""
+        print(f"\n=== ADDING HISTORY COLUMN ===")
+        print(f"   Creating history entries for {len(df)} rows...")
+
+        # Create history entries for each row
+        history_entries = []
+        for row_index in range(len(df)):
+            history_entry = self.history_tracker.create_history_entry(row_index, df)
+            history_entries.append(history_entry)
+
+        # Add the history column
+        df_with_history = df.copy()
+        df_with_history['column_history'] = history_entries
+
+        print(f"   [OK] Added column_history column")
+        return df_with_history
 
 def main():
     """Main function for the DataFrame normalizer."""
