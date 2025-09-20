@@ -1,0 +1,48 @@
+[
+  {
+    "resourceName": "contract.pdf",
+    "Content-Type": "application/pdf",
+    "dc:title": "Service Contract Agreement",
+    "meta:author": "John Smith",
+    "meta:creation-date": "2023-01-15T10:30:00Z",
+    "dcterms:created": "2023-01-15T10:30:00Z",
+    "dcterms:modified": "2023-01-16T14:45:00Z",
+    "X-TIKA:content": "This is a confidential service contract between Company A and Company B..."
+  },
+  {
+    "resourceName": "email_thread.msg",
+    "Content-Type": "application/vnd.ms-outlook",
+    "dc:title": "RE: Project Update Meeting",
+    "meta:author": "jane.doe@company.com",
+    "meta:creation-date": "2023-02-10T09:15:00Z",
+    "dcterms:created": "2023-02-10T09:15:00Z",
+    "X-TIKA:content": "Hi team, please find attached the project update documents..."
+  },
+  {
+    "resourceName": "budget_analysis.xlsx",
+    "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "dc:title": "Q1 Budget Analysis",
+    "meta:author": "Finance Team",
+    "meta:creation-date": "2023-03-01T16:20:00Z",
+    "dcterms:created": "2023-03-01T16:20:00Z",
+    "dcterms:modified": "2023-03-02T11:30:00Z",
+    "X-TIKA:content": "Budget analysis for Q1 showing revenue projections and expense breakdown..."
+  },
+  {
+    "resourceName": "meeting_notes.docx",
+    "Content-Type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "dc:title": "Board Meeting Notes - March 2023",
+    "meta:author": "Executive Assistant",
+    "meta:creation-date": "2023-03-15T13:45:00Z",
+    "dcterms:created": "2023-03-15T13:45:00Z",
+    "X-TIKA:content": "Privileged and confidential board meeting notes containing strategic discussions..."
+  },
+  {
+    "resourceName": "logo.png",
+    "Content-Type": "image/png",
+    "dc:title": "Company Logo",
+    "meta:creation-date": "2022-12-01T12:00:00Z",
+    "dcterms:created": "2022-12-01T12:00:00Z",
+    "X-TIKA:content": ""
+  }
+]

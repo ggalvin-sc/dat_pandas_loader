@@ -26,6 +26,7 @@ import copy
 # Add src to path for imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from dat_loader import load_dat_file
+from transformation_history import TransformationHistoryTracker
 
 class SchemaFingerprinter:
     """Handles schema fingerprinting for automatic format detection."""
@@ -292,142 +293,6 @@ class DateFieldIdentifier:
     def get_pending_review_fields(self) -> List[str]:
         """Get list of fields pending review."""
         return list(self.date_fields["pending_review"].keys())
-
-class TransformationHistoryTracker:
-    """Tracks the complete transformation history for creating history columns."""
-
-    def __init__(self):
-        self.transformations = {}  # column_name -> list of transformations
-        self.merges = {}          # new_column -> list of source columns
-        self.splits = {}          # original_column -> list of new columns
-        self.mappings = {}        # final_column -> original_column
-
-    def track_mapping(self, original_column: str, final_column: str,
-                     transformation_type: str = "column_mapping"):
-        """Track a basic column mapping."""
-        self.mappings[final_column] = original_column
-
-        if final_column not in self.transformations:
-            self.transformations[final_column] = []
-
-        self.transformations[final_column].append({
-            "type": transformation_type,
-            "original_name": original_column,
-            "final_name": final_column,
-            "timestamp": datetime.now().isoformat()
-        })
-
-    def track_merge(self, source_columns: List[str], target_column: str, separator: str = " "):
-        """Track a column merge operation."""
-        self.merges[target_column] = {
-            "sources": source_columns,
-            "separator": separator,
-            "timestamp": datetime.now().isoformat()
-        }
-
-        if target_column not in self.transformations:
-            self.transformations[target_column] = []
-
-        self.transformations[target_column].append({
-            "type": "merge",
-            "sources": source_columns,
-            "target": target_column,
-            "separator": separator,
-            "timestamp": datetime.now().isoformat()
-        })
-
-    def track_split(self, original_column: str, new_columns: List[str], separator: str = "-"):
-        """Track a column split operation."""
-        self.splits[original_column] = {
-            "new_columns": new_columns,
-            "separator": separator,
-            "timestamp": datetime.now().isoformat()
-        }
-
-        for new_col in new_columns:
-            if new_col not in self.transformations:
-                self.transformations[new_col] = []
-
-            self.transformations[new_col].append({
-                "type": "split",
-                "original": original_column,
-                "target": new_col,
-                "separator": separator,
-                "timestamp": datetime.now().isoformat()
-            })
-
-    def track_date_normalization(self, column: str, original_format: str, final_format: str):
-        """Track date normalization."""
-        if column not in self.transformations:
-            self.transformations[column] = []
-
-        self.transformations[column].append({
-            "type": "date_normalization",
-            "original_format": original_format,
-            "final_format": final_format,
-            "timestamp": datetime.now().isoformat()
-        })
-
-    def get_column_history(self, column: str, row_data: Dict) -> Dict:
-        """Get the complete transformation history for a column."""
-        original_column = self.mappings.get(column, column)
-
-        history = {
-            "original_column": original_column,
-            "final_column": column,
-            "transformations": self.transformations.get(column, []),
-            "original_value": row_data.get(original_column, row_data.get(column, "")),
-            "final_value": row_data.get(column, ""),
-            "is_mapped": column in self.mappings,
-            "is_merged": column in self.merges,
-            "is_split": any(column in split_info["new_columns"] for split_info in self.splits.values()),
-        }
-
-        # Add merge details if applicable
-        if column in self.merges:
-            merge_info = self.merges[column]
-            history["merge_details"] = {
-                "source_columns": merge_info["sources"],
-                "separator": merge_info["separator"],
-                "source_values": [row_data.get(src, "") for src in merge_info["sources"]]
-            }
-
-        # Add split details if applicable
-        for orig_col, split_info in self.splits.items():
-            if column in split_info["new_columns"]:
-                history["split_details"] = {
-                    "original_column": orig_col,
-                    "separator": split_info["separator"],
-                    "original_value": row_data.get(orig_col, "")
-                }
-                break
-
-        return history
-
-    def create_history_entry(self, row_index: int, df: pd.DataFrame) -> str:
-        """Create a JSON history entry for a specific row."""
-        row_data = df.iloc[row_index].to_dict()
-
-        history_entry = {}
-        for column in df.columns:
-            if column != 'column_history':  # Don't create history for the history column itself
-                col_history = self.get_column_history(column, row_data)
-                history_entry[column] = {
-                    "original_column": col_history["original_column"],
-                    "final_column": col_history["final_column"],
-                    "original_value": str(col_history["original_value"]),
-                    "final_value": str(col_history["final_value"]),
-                    "transformations": len(col_history["transformations"]),
-                    "is_transformed": col_history["is_mapped"] or col_history["is_merged"] or col_history["is_split"]
-                }
-
-                # Add transformation details for significant changes
-                if col_history["is_merged"]:
-                    history_entry[column]["merge_sources"] = col_history["merge_details"]["source_columns"]
-                if col_history["is_split"]:
-                    history_entry[column]["split_from"] = col_history["split_details"]["original_column"]
-
-        return json.dumps(history_entry, ensure_ascii=False)
 
 
 class FieldMetadataTracker:
@@ -1438,10 +1303,15 @@ class ColumnMapper:
 
         print(f"   [MERGE] {list(existing_sources.values())} -> {target_field}")
 
-        # Track merge transformation
+        # Track merge transformation only if we have multiple sources
         source_columns = list(existing_sources.values())
-        separator = " + "  # Default separator for merged fields
-        self.history_tracker.track_merge(source_columns, target_field, separator)
+        if len(source_columns) >= 2:
+            separator = " + "  # Default separator for merged fields
+            self.history_tracker.track_merge(source_columns, target_field, separator)
+        else:
+            # Single column transformation, track as data transformation instead
+            self.history_tracker.track_data_transformation(target_field, "single_column_merge",
+                                                          {"source_column": source_columns[0] if source_columns else "unknown"})
 
         # Merge date and time fields
         if 'date' in existing_sources and 'time' in existing_sources:
@@ -1542,15 +1412,8 @@ class ColumnMapper:
         print(f"\n=== ADDING HISTORY COLUMN ===")
         print(f"   Creating history entries for {len(df)} rows...")
 
-        # Create history entries for each row
-        history_entries = []
-        for row_index in range(len(df)):
-            history_entry = self.history_tracker.create_history_entry(row_index, df)
-            history_entries.append(history_entry)
-
-        # Add the history column
-        df_with_history = df.copy()
-        df_with_history['column_history'] = history_entries
+        # Use the new transformation history tracker method
+        df_with_history = self.history_tracker.add_history_column_to_dataframe(df)
 
         print(f"   [OK] Added column_history column")
         return df_with_history
